@@ -66,6 +66,481 @@ h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.015em;text-wrap:ba
 .dd__btn:hover{border-color:var(--muted)}
 .dd__btn.has{border-color:var(--red);color:var(--red-dark);background:var(--red-soft)}
 .dd__n{font-family:var(--mono);font-size:11px;background:var(--red);color:#fff;border-radius:999px;min-width:18px;height:18px;display:inline-grid;place-items:center;padding:0 5px}
+.dd__n[hidden]{display:none}
+.dd__panel{position:absolute;top:calc(100% + 8px);left:0;min-width:250px;max-height:330px;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:0 18px 40px -18px rgba(0,0,0,.35);padding:8px;z-index:40}
+.dd__panel[hidden]{display:none}
+.dd__opt{display:flex;align-items:center;gap:10px;padding:7px 9px;border-radius:7px;cursor:pointer;font-size:14px}
+.dd__opt:hover{background:var(--surface-2)}
+.dd__opt input{accent-color:var(--red);width:15px;height:15px;flex:none}
+.dd__opt span:last-child{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.btn-clear{font:inherit;font-size:14px;cursor:pointer;background:transparent;border:0;color:var(--red);padding:10px 6px;border-radius:999px;text-decoration:underline;text-underline-offset:3px}
+.btn-clear:hover{background:var(--red-soft)}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.chips:empty{display:none}
+.chip{display:inline-flex;align-items:center;gap:7px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:4px 6px 4px 12px;font-size:12.5px}
+.chip button{border:0;background:var(--line);color:var(--ink-2);width:18px;height:18px;border-radius:50%;cursor:pointer;font-size:13px;line-height:1;display:grid;place-items:center}
+.chip button:hover{background:var(--red);color:#fff}
+
+/* ---------- category buttons ---------- */
+.pick{padding-block:30px 4px}
+.pick__head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px 16px;margin-bottom:16px}
+.pick__head h2{font-size:20px;font-weight:600}
+.pick__head p{margin:0;font-size:14px;color:var(--muted)}
+.pick__actions{display:flex;gap:6px}
+.linkbtn{font:inherit;font-size:13.5px;cursor:pointer;background:transparent;border:1px solid var(--line);color:var(--ink-2);border-radius:999px;padding:6px 13px}
+.linkbtn:hover{border-color:var(--ink);color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.cat{
+  position:relative;display:flex;align-items:center;gap:13px;text-align:left;cursor:pointer;
+  font:inherit;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:15px 16px;color:var(--ink);transition:border-color .16s ease, background .16s ease, transform .16s ease;
+}
+.cat:hover{border-color:var(--ink);transform:translateY(-1px)}
+.cat__ico{flex:none;width:40px;height:40px;border-radius:10px;background:var(--surface-2);color:var(--ink-2);display:grid;place-items:center;transition:background .16s ease,color .16s ease}
+.cat__txt{display:flex;flex-direction:column;min-width:0}
+.cat__name{font-family:var(--display);font-weight:600;font-size:15.5px;line-height:1.25}
+.cat__n{font-size:12.5px;color:var(--muted);font-family:var(--mono)}
+.cat__chev{margin-left:auto;color:var(--muted);transition:transform .2s ease}
+.cat[aria-expanded="true"]{border-color:var(--red);background:var(--red-soft)}
+.cat[aria-expanded="true"] .cat__ico{background:var(--red);color:#fff}
+.cat[aria-expanded="true"] .cat__chev{transform:rotate(180deg);color:var(--red-dark)}
+.cat[aria-expanded="true"] .cat__n{color:var(--red-dark)}
+.cat[data-empty="1"]{opacity:.42;cursor:not-allowed}
+.cat[data-empty="1"]:hover{border-color:var(--line);transform:none}
+
+/* ---------- sections ---------- */
+.sections{padding-block:26px 8px;display:flex;flex-direction:column;gap:16px}
+.sec{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);overflow:hidden}
+.sec[hidden]{display:none}
+.sec__head{display:flex;align-items:center;gap:12px;padding:15px 18px;border-bottom:1px solid var(--line-2);background:var(--surface-2)}
+.sec__head h3{font-size:17px;font-weight:600}
+.sec__n{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.sec__close{margin-left:auto;font:inherit;font-size:13px;cursor:pointer;background:transparent;border:1px solid var(--line);color:var(--ink-2);border-radius:999px;padding:5px 12px;display:inline-flex;align-items:center;gap:6px}
+.sec__close:hover{border-color:var(--red);color:var(--red)}
+.sec__body{animation:reveal .22s ease both}
+@keyframes reveal{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:880px;font-size:14px}
+thead th{background:var(--surface);color:var(--muted);text-align:left;font-family:var(--display);font-weight:600;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;padding:11px 18px;white-space:nowrap;border-bottom:1px solid var(--line-2)}
+tbody td{border-top:1px solid var(--line-2);padding:12px 18px;vertical-align:top}
+tbody tr:hover{background:var(--surface-2)}
+.c-her{font-weight:600;white-space:nowrap}
+.c-mod{color:var(--ink-2)}
+.note{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:11.5px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink-2);border-radius:5px;padding:2px 7px;white-space:nowrap}
+.tag--fn{border-color:rgba(236,45,63,.28);background:var(--red-soft);color:var(--red-dark)}
+.tbd{color:var(--muted);font-size:12.5px;font-style:italic}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;white-space:nowrap;border-radius:999px;padding:3px 10px}
+.st--ok{background:var(--green-soft);color:var(--green)}
+.st--lim{background:var(--amber-soft);color:var(--amber)}
+.st--beta{background:var(--red-soft);color:var(--red-dark)}
+.dl{display:inline-flex;align-items:center;gap:6px;color:var(--red);font-weight:600;text-decoration:none;white-space:nowrap;font-size:13.5px}
+.dl:hover{text-decoration:underline;text-underline-offset:3px}
+.dl--none{color:var(--muted);font-weight:400;font-style:italic;font-size:12.5px}
+
+.cards{display:none;flex-direction:column;gap:10px;padding:14px}
+.card{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:13px}
+.card__head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.card__her{font-weight:600;font-size:15px}
+.card__mod{color:var(--ink-2);font-size:13.5px}
+.card__row{display:flex;gap:8px;font-size:13px;margin-top:8px;color:var(--ink-2)}
+.card__row b{font-weight:600;color:var(--muted);font-size:11px;letter-spacing:.05em;text-transform:uppercase;flex:none;width:84px;padding-top:2px}
+@media (max-width:820px){ .tablewrap{display:none} .cards{display:flex} }
+
+.hint{padding:34px 20px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:var(--r);background:var(--surface-2)}
+.hint b{display:block;font-family:var(--display);font-size:18px;color:var(--ink);margin-bottom:5px}
+
+/* ---------- footer ---------- */
+.legend{margin-top:38px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;padding-top:24px;border-top:1px solid var(--line)}
+.legend h3{font-size:14px;font-weight:600;margin-bottom:6px}
+.legend p{margin:0;font-size:13.5px;color:var(--ink-2)}
+.devnote{margin-top:32px;border:1px dashed var(--line);border-left:4px solid var(--ink);border-radius:var(--r);background:var(--surface-2);padding:22px}
+.devnote h2{font-size:17px;font-weight:600;margin-bottom:10px}
+.devnote p,.devnote li{font-size:13.5px;color:var(--ink-2)}
+.devnote ul{margin:8px 0 0;padding-left:20px}
+.devnote code{font-family:var(--mono);font-size:12.5px;background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+footer{margin-top:30px;padding:22px 0 44px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 20px}
+footer a{color:var(--ink-2)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+
+<header class="top">
+  <div class="wrap top__bar">
+    <svg class="logo" viewBox="0 0 858 155" role="img" aria-label="thermondo" xmlns="http://www.w3.org/2000/svg"><title>thermondo</title><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M0,77.5C0,34.8,34.8,0,77.7,0C120.3,0,155,34.8,155,77.5c0,42.7-34.8,77.5-77.7,77.5C34.7,155,0,120.2,0,77.5z M77.7,26.5c-28.2,0-51.2,22.9-51.2,51s22.8,51,50.9,51c28.2,0,51.2-22.9,51.2-51S105.7,26.5,77.7,26.5"></path><g transform="translate(193.9103,31.9007)"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M47.5,73.1v15.7H35c-14.4,0-23.2-8.8-23.2-23.3V37.7H0v-3.8L25.8,6.5h3.4v17h18v14.2H29.5v25.5c0,6.3,3.6,9.9,10.1,9.9H47.5z M120.1,88.8h-17.7V52.1c0-9.8-3.5-14.6-11.4-14.6c-8.8,0-14.7,6.4-14.7,17v34.3H58.7V0h17.7v29.6c5-4.7,11.9-7.6,19.7-7.6c14.8,0,24,10.5,24,27.2V88.8z M245.8,23.2v16.7h-7.7c-9.9,0-13.9,4.4-13.9,15.1v33.9h-17.7V23.5h11.3l3.1,8c4.7-5.8,10.6-8.4,18.9-8.4H245.8z M353.4,47.9v41h-17.7v-38c0-8.7-3.4-13.3-9.8-13.3c-7.9,0-12.6,5.8-12.6,16v35.3h-17.2v-38c0-8.7-3.3-13.3-9.6-13.3c-8,0-12.8,5.8-12.8,16v35.3h-17.7V23.5h12.3l3.3,8.1c4.6-5.8,11.8-9.6,19.5-9.6c8.3,0,15.2,3.9,19,10.4c4.5-6.3,11.9-10.4,20.2-10.4C343.9,22,353.4,32.6,353.4,47.9L353.4,47.9z M362.8,56.2c0-19.8,15.1-34.5,35.3-34.5c20.1,0,35.3,14.7,35.3,34.5c0,19.7-15.2,34.5-35.3,34.5C377.9,90.7,362.8,75.9,362.8,56.2L362.8,56.2z M415.5,56.2c0-10.6-7.2-17.9-17.4-17.9c-10.2,0-17.4,7.3-17.4,17.9c0,10.6,7.2,17.9,17.4,17.9C408.3,74.1,415.5,66.8,415.5,56.2L415.5,56.2z M504.3,49.3v39.6h-17.7V52.1c0-9.9-3.7-14.6-11.4-14.6c-9.1,0-14.7,6.5-14.7,17v34.3h-17.7V23.5H455l3.4,8.1c4.9-5.9,12.7-9.6,21.6-9.6C495,22,504.3,32.7,504.3,49.3L504.3,49.3z M583.3,0v88.8h-13l-2.1-5.4c-5.5,4.7-12.5,7.4-20.5,7.4c-19.8,0-34.3-14.8-34.3-34.6c0-19.8,14.5-34.5,34.3-34.5c6.7,0,12.9,2,17.9,5.4V0L583.3,0z M567,56.2c0-10.2-7.5-17.9-17.8-17.9c-10.3,0-17.8,7.6-17.8,17.9c0,10.3,7.5,17.9,17.8,17.9C559.4,74.1,567,66.4,567,56.2L567,56.2z M592.9,56.2c0-19.8,15.1-34.5,35.3-34.5c20.1,0,35.3,14.7,35.3,34.5c0,19.7-15.2,34.5-35.3,34.5C607.9,90.7,592.9,75.9,592.9,56.2L592.9,56.2z M645.6,56.2c0-10.6-7.2-17.9-17.4-17.9c-10.2,0-17.4,7.3-17.4,17.9c0,10.6,7.2,17.9,17.4,17.9C638.3,74.1,645.6,66.8,645.6,56.2L645.6,56.2z M175.5,68.9c-2.8,3.8-7.4,6-12.8,6c-8.6,0-14.4-4.9-16-13.8h49.4c0.2-1.7,0.3-3.5,0.3-5.2c0-18.8-13.8-34.3-33.8-34.3c-19.4,0-33.9,14.8-33.9,34.5c0,19.6,14.6,34.5,33.9,34.5c14.6,0,26.7-8.4,31.8-21.8H175.5z M162.7,36.8c7.9,0,13.7,4.3,16.2,12.3h-31.6C149.3,41.3,154.8,36.8,162.7,36.8L162.7,36.8z"></path></g></svg>
+    <span class="top__tag">thermondo smart</span>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <h1>Kompatible Geräte für <em>thermondo smart</em></h1>
+    <p>Wählen Sie unten Ihre Gerätekategorie — die passende Liste klappt auf. Zu jedem Gerät sehen Sie, wie es angebunden wird und wo die Anleitung liegt.</p>
+    <div class="stats">
+      <div class="stat"><b>292</b><span>Geräte gelistet</span></div>
+      <div class="stat"><b>141</b><span>Hersteller</span></div>
+      <div class="stat"><b>11</b><span>Kategorien</span></div>
+      <div class="stat stat--red"><b>1</b><span>Anleitung verlinkt</span></div>
+    </div>
+  </section>
+</div>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="bar__row">
+      <label class="search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5 21 21"></path></svg>
+        <input id="q" type="search" placeholder="Hersteller oder Modell suchen …" autocomplete="off">
+      </label>
+      <div class="dd" data-f="her"></div>
+      <div class="dd" data-f="anb"></div>
+      <div class="dd" data-f="fun"></div>
+      <div class="dd" data-f="st"></div>
+      <button class="btn-clear" id="clear" type="button">Zurücksetzen</button>
+    </div>
+    <div class="chips" id="chips"></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="pick">
+    <div class="pick__head">
+      <div>
+        <h2>Gerätekategorie wählen</h2>
+        <p id="pickHint">Tippen Sie auf eine Kategorie, um die Geräte ein- oder auszublenden.</p>
+      </div>
+      <div class="pick__actions">
+        <button class="linkbtn" id="openAll" type="button">Alle einblenden</button>
+        <button class="linkbtn" id="closeAll" type="button">Alle ausblenden</button>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <div class="sections" id="sections"></div>
+  <div class="hint" id="hint" hidden></div>
+
+  <section class="legend">
+    <div><h3>Anbindung</h3><p>Wie das Gerät mit dem Energiemanager spricht — etwa Modbus TCP, OCPP, lokal im Netzwerk oder über die Cloud des Herstellers.</p></div>
+    <div><h3>Hardware</h3><p>Zusätzlich benötigte Komponenten wie Dongle, Gateway, Zähler oder Lizenz.</p></div>
+    <div><h3>Funktionen</h3><p>Was thermondo smart mit dem Gerät tun kann: messen, steuern, Lastmanagement oder Einspeisemanagement.</p></div>
+    <div><h3>Status</h3><p><b>Unterstützt</b> — vollständig nutzbar. <b>Eingeschränkt</b> — nutzbar mit Einschränkungen. <b>Beta</b> — in Erprobung.</p></div>
+  </section>
+
+  <section class="devnote">
+    <h2>Hinweis für das Web-Team (nicht Teil der Kundenseite)</h2>
+    <p>Dieser Entwurf zeigt die Interaktion: Kategorie antippen, Liste klappt auf; Suche und Filter wirken über alle Kategorien und öffnen automatisch die Treffer. In dieser Fassung ist bewusst nur <b>eine</b> Anleitung verlinkt: die Buderus-Wärmepumpe führt auf die animierte MX-400-Anleitung, die in einem neuen Tab öffnet. Alle übrigen Geräte stehen auf „folgt“. Die Daten stammen 1:1 aus der heutigen Kompatibilitätsliste; die Spalten <b>Anbindung</b>, <b>Hardware</b> und <b>Funktionen</b> wurden aus den Gerätebezeichnungen abgeleitet, weil es dafür bisher keine gepflegten Felder gibt. Wo nichts erkennbar war, steht „noch zu ergänzen“.</p>
+    <ul>
+      <li>Vorschlag für Wagtail: ein Snippet <code>Geraet</code> mit den Feldern <code>kategorie</code>, <code>hersteller</code>, <code>modell</code>, <code>anbindung</code> (Mehrfachauswahl), <code>hardware</code>, <code>funktionen</code> (Mehrfachauswahl), <code>status</code>, <code>anleitung</code> (Document oder URL), <code>notiz</code>.</li>
+      <li>Ein StreamField-Block rendert alle Snippets als diese Seite — Kategorie-Buttons, Suche und Filter laufen clientseitig.</li>
+      <li>Die Daten liegen daneben als <code>geraete.json</code> bereit und lassen sich per Management-Command aus der Wissensdatenbank befüllen.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>Entwurf auf Basis der Kompatibilitätsliste, Stand 16.09.2026.</span>
+    <a href="https://www.thermondo.de/kompatibilitaetsliste/" target="_blank" rel="noopener">Aktuelle Seite öffnen</a>
+  </footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var DATA = [{"kat":"Wechselrichter","her":"AlphaESS","mod":"Storion Smile","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"APsystems","mod":"EZ1-M","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"Controlin","mod":"SKD-103-ME","anb":[],"hw":[],"fun":["Erzeugungsmessung","Produktionsmessung"],"st":"Unterstützt","url":"","note":"Produktionsmessung"},{"kat":"Wechselrichter","her":"E3/DC","mod":"Wechselrichter","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"Eastron","mod":"SDM 630 und 72D (TCP)","anb":["Modbus TCP"],"hw":[],"fun":["Erzeugungsmessung","Produktionsmessung"],"st":"Unterstützt","url":"","note":"Produktionsmessung"},{"kat":"Wechselrichter","her":"EMU","mod":"M-Bus Center (mit Professional und Allrounder)","anb":["M-Bus"],"hw":["Professional und Allrounder"],"fun":["Erzeugungsmessung","Produktionsmessung"],"st":"Unterstützt","url":"","note":"Produktionsmessung"},{"kat":"Wechselrichter","her":"Enphase","mod":"IQ Gateway Metered","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"FENECON","mod":"Home 6, 10 & 15","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"Fimer","mod":"ABB Trio mit VSN300 WLAN","anb":["WLAN"],"hw":["VSN300 WLAN"],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"Fimer","mod":"PVS","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"Fronius","mod":"GEN24","anb":["Modbus TCP"],"hw":[],"fun":["Einspeisemanagement","Erzeugungsmessung"],"st":"Unterstützt","url":"","note":"Modbus TCP"},{"kat":"Wechselrichter","her":"Fronius","mod":"Smart Meter","anb":[],"hw":[],"fun":["Erzeugungsmessung","Produktionsmessung"],"st":"Unterstützt","url":"","note":"Produktionsmessung"},{"kat":"Wechselrichter","her":"Fronius","mod":"Symo, Hybrid, Galvo, Gen24, Tauro, Verto","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"GoodWe","mod":"ET (5-10kW)/ EH / BH / BT","anb":["LAN","Modbus TCP","WLAN"],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":"Wi-Fi & LAN Modbus TCP"},{"kat":"Wechselrichter","her":"Huawei","mod":"EMMA","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"Huawei","mod":"SmartLogger3000","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"Huawei","mod":"SUN2000","anb":[],"hw":["SmartDongle"],"fun":["Einspeisemanagement","Erzeugungsmessung"],"st":"Unterstützt","url":"","note":"über SmartDongle"},{"kat":"Wechselrichter","her":"Janitza","mod":"UMG 96RM-E, UMG 96RM-PN","anb":[],"hw":[],"fun":["Erzeugungsmessung","Produktionsmessung"],"st":"Unterstützt","url":"","note":"Produktionsmessung"},{"kat":"Wechselrichter","her":"KACO","mod":"Tx1 und Tx3","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":"blueplanet und Powador außer Hybrid"},{"kat":"Wechselrichter","her":"KOSTAL","mod":"PIKO 4.2-20","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"KOSTAL","mod":"PIKO BA","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"KOSTAL","mod":"PIKO CI","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"KOSTAL","mod":"PIKO IQ","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"KOSTAL","mod":"PLENTICORE BI / G3 / plus","anb":[],"hw":[],"fun":["Einspeisemanagement","Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"LG","mod":"ESS Home 8/10","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"M-TEC","mod":"Energy Butler","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"Optec","mod":"ECS M3 Pro","anb":[],"hw":[],"fun":["Erzeugungsmessung","Produktionsmessung"],"st":"Unterstützt","url":"","note":"Produktionsmessung"},{"kat":"Wechselrichter","her":"RCT","mod":"Power Inverter 4.0, 6.0","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"RCT","mod":"Power Storage DC 4.0, 6.0, 8.0, 10.0","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"Shelly","mod":"3EM, Pro EM, Pro 3EM-63T, Pro 3EM, Pro 2PM","anb":[],"hw":[],"fun":["Erzeugungsmessung","Produktionsmessung"],"st":"Unterstützt","url":"","note":"Produktionsmessung"},{"kat":"Wechselrichter","her":"Siemens","mod":"7KM PAC","anb":[],"hw":[],"fun":["Erzeugungsmessung","Produktionsmessung"],"st":"Unterstützt","url":"","note":"Produktionsmessung"},{"kat":"Wechselrichter","her":"Sigenergy","mod":"Sigen Hybrid Wechselrichter","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"SMA","mod":"Core-2","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"SMA","mod":"Data Manager","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"SMA","mod":"Sunny Island X","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"SMA","mod":"Sunny Tripower & Tripower X","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"SMA","mod":"Sunny Tripower Smart Energy","anb":[],"hw":[],"fun":["Einspeisemanagement","Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"smart-me","mod":"Meter 3-Phasig 5(80)A, MID","anb":[],"hw":[],"fun":["Erzeugungsmessung","Produktionsmessung"],"st":"Unterstützt","url":"","note":"Produktionsmessung"},{"kat":"Wechselrichter","her":"SOFAR","mod":"HYD KTL","anb":["LAN","Modbus TCP"],"hw":["TCP/Ethernet Dongle LSE-3"],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":"über TCP/Ethernet Dongle LSE-3"},{"kat":"Wechselrichter","her":"Solar-Log","mod":"Base","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"SolarEdge","mod":"SE","anb":[],"hw":[],"fun":["Einspeisemanagement","Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"SolarMax","mod":"S und MT","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"SolaX","mod":"X1 & X3 Hybrid G3 / G4","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"Solinteg","mod":"Hybridwechselrichter MHT","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"Solplanet","mod":"ASW","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":"hybrid Wechselrichter"},{"kat":"Wechselrichter","her":"Studer Innotec","mod":"Next3","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"Sungrow","mod":"Logger1000","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":"Summe der angeschlossenen WR"},{"kat":"Wechselrichter","her":"Sungrow","mod":"SG-Series","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"Sungrow","mod":"SH15T/SH20T/SH25T","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"Sungrow","mod":"SH3.0-10RS/SH5-25T","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"Sungrow","mod":"SH5.0-10RT","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"TQ-Systems","mod":"EM300, EM420","anb":[],"hw":[],"fun":["Erzeugungsmessung","Produktionsmessung"],"st":"Unterstützt","url":"","note":"Produktionsmessung"},{"kat":"Wechselrichter","her":"Victron","mod":"Venus / Cerbo Gateway","anb":[],"hw":[],"fun":["Erzeugungsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wechselrichter","her":"WAGO","mod":"(MID & METAS) Energiezähler","anb":[],"hw":[],"fun":["Erzeugungsmessung","Produktionsmessung"],"st":"Unterstützt","url":"","note":"Produktionsmessung"},{"kat":"Wechselrichter","her":"Whatwatt","mod":"Go","anb":[],"hw":[],"fun":["Erzeugungsmessung","Produktionsmessung"],"st":"Unterstützt","url":"","note":"Produktionsmessung"},{"kat":"Energiemessung","her":"ABB","mod":"EQmatic","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Carlo Gavazzi","mod":"EM24","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"CHINT","mod":"DTSU an dedizierten Wechselrichtern","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Clemap","mod":"Energy Monitoring, Gateway, Load Management","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Climkit","mod":"Smart Meter","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Controlin","mod":"SKD-103-ME","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"E3/DC","mod":"Smart Meter","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Eastron","mod":"SDM 630 und 72D TCP","anb":["Modbus TCP"],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Ecoflow","mod":"PowerOcean, PowerOceanPlus","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"EmonCms","mod":"SmartMeter","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"EMU","mod":"M-Bus Center Produktionsmessung","anb":["M-Bus"],"hw":["Professional und Allrounder"],"fun":["Produktionsmessung","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":"mit Professional und Allrounder"},{"kat":"Energiemessung","her":"EMU","mod":"Professional & Professional II","anb":["Modbus TCP"],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":"TCP/IP"},{"kat":"Energiemessung","her":"Enphase","mod":"IQ Gateway Metered","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Fronius","mod":"Gen24","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Fronius","mod":"Smart Meter","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"GoodWe","mod":"Smart Meter ET / EH / BH / BT","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"GUDE","mod":"Expert Net Control 2312-1","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Huawei","mod":"EMMA","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Huawei","mod":"Smart Power Sensor am SUN2000","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Huawei","mod":"SmartLogger3000","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Janitza","mod":"UMG 512-PRO / 604-PRO","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Janitza","mod":"UMG 96RM-E, UMG 96RM-PN","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"K'ELECTRIC","mod":"KE-P80 mit LAN-Bus Gateway Modul","anb":["LAN"],"hw":["LAN-Bus Gateway Modul"],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"KOSTAL","mod":"Smart Energie Meter","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"M-TEC","mod":"Energy Butler","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"my-PV","mod":"Power Meter","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"my-PV","mod":"WiFi Meter","anb":["WLAN"],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"myStrom","mod":"Energy Control Switch","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Optec","mod":"ecs M3PRO mit LAN-Modul","anb":["LAN"],"hw":["LAN-Modul"],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Phoenix Contact","mod":"EEM","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"PPC","mod":"CLS Adapter Steuerung 2.0 (§14a)","anb":[],"hw":[],"fun":["Verbrauchsmessung","§14a-Steuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"RCT Power","mod":"Inverter 4.0, 6.0","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"RCT Power","mod":"Storage DC 4.0, 6.0, 8.0, 10.0","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Schneider Electric","mod":"PowerTag Energy","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Shelly","mod":"1PM / 1PM Mini / 2.5 / EM / 3EM / Pro 3EM-63T / 4Pro / Plug S / Plug S Gen3","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Shelly","mod":"3EM","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Shelly","mod":"Pro 1PM / Pro 2PM / Pro 3EM / Pro 4PM","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Shelly","mod":"Pro 3EM Switch Add-On","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Siemens","mod":"7KM PAC (TCP)","anb":["Modbus TCP"],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"SMA","mod":"Data Manager","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"SMA","mod":"Energy Meter 2.0","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"SMA","mod":"Sunny Home Manager","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"SMA","mod":"Sunny Home Manager 2.0","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"smart-me","mod":"1-Phasen Zähler","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"smart-me","mod":"3-Phasen Zähler (Telstar) 80A","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"smart-me","mod":"3-Phasen Zähler Telstar CT","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"smart-me","mod":"Kamstrup Modul","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"smart-me","mod":"Modbus","anb":["Modbus TCP"],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"SMARTFOX","mod":"PRO als Smart Meter","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Socomec","mod":"Countis E27/E47","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Solar-Log","mod":"Base","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"SolarEdge","mod":"Energy Meter","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"SOLARMAX","mod":"Power Meter +","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Solax","mod":"Hybrid Smart Meter Messung","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":"X1&X3-G3"},{"kat":"Energiemessung","her":"Solvimus","mod":"MUC.EASYPLUS","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Studer Innotec","mod":"Next3 Zähler","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Sungrow","mod":"Energy Meter - nur bei SGxxKTL-M","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Sungrow","mod":"SH3.0-10RS/SH5-25T","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"TQ-Systems","mod":"EM420, MU100, SU100, B-Control EM300","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"WAGO","mod":"(MID & METAS) Energiezähler","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"Weidmüller","mod":"EM 122 RTU","anb":[],"hw":[],"fun":["Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Energiemessung","her":"whatwatt","mod":"Go","anb":[],"hw":[],"fun":["Lastmanagement","Verbrauchsmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"ADS-TEC","mod":"StoraXe","anb":[],"hw":["Siemens PAC3300"],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":"mit Siemens PAC3300"},{"kat":"Speicher / Batterie","her":"Alpha ESS","mod":"Storion Smile","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"BYD","mod":"B-Box HV, HVS & HVM über einen unterstützten Wechselrichter","anb":[],"hw":["einen unterstützten Wechselrichter"],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"BYD","mod":"B-Box LVS & LVL über einen unterstützten Wechselrichter","anb":[],"hw":["einen unterstützten Wechselrichter"],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"E3/DC","mod":"Speichersystem","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"ecocoach","mod":"ecoBatterySystem","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Ecoflow","mod":"PowerOcean, PowerOceanPlus","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Enphase","mod":"IQ Gateway Metered","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"FENECON","mod":"Home 6, 10 & 15","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Fronius","mod":"Gen24","anb":["Modbus TCP"],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":"Modbus TCP"},{"kat":"Speicher / Batterie","her":"Fronius","mod":"Symo, Hybrid, Galvo, Gen24, Tauro, Verto","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"GoodWe","mod":"ET / EH / BH / BT","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Huawei","mod":"EMMA","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Huawei","mod":"LUNA2000","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Huawei","mod":"SmartLogger3000","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"innovenergy","mod":"salidomo","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"KOSTAL","mod":"PIKO BA","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"KOSTAL","mod":"PLENTICORE BI / G3 / plus","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"LG","mod":"ESS Home 8/10","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"M-TEC","mod":"Energy Butler","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Marstek","mod":"Venus E.30","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"modual","mod":"Serie Basic AC","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"modual","mod":"Serie Basic DC über SolarEdge, Victron","anb":[],"hw":["SolarEdge"],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"modual","mod":"Serie Lite AC","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Pixii","mod":"PowerShaper XL","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Prolux","mod":"STORAC AC","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"RCT","mod":"PowerStorage DC 4.0, 6.0, 8.0, 10.0","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"SAX Power","mod":"Home","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Shelly","mod":"3EM","anb":[],"hw":[],"fun":["Batteriemessung","Speichermessung"],"st":"Unterstützt","url":"","note":"Batteriemessung und Priorisierung"},{"kat":"Speicher / Batterie","her":"Sigenergy","mod":"SigenStor Energiespeichersystem","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"SMA","mod":"Sunny Boy Storage","anb":[],"hw":["SMA Energy Meter 2.0"],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":"Smart Meter über SMA Energy Meter 2.0"},{"kat":"Speicher / Batterie","her":"SMA","mod":"Sunny Island","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"SMA","mod":"Sunny Island X","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"SMA","mod":"Sunny Tripower Smart Energy","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"smart-me","mod":"Batteriemessung und Priorisierung","anb":[],"hw":[],"fun":["Batteriemessung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"SOFAR","mod":"HYD KTL","anb":["LAN","Modbus TCP"],"hw":["TCP/Ethernet Dongle LSE-3"],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":"über TCP/Ethernet Dongle LSE-3"},{"kat":"Speicher / Batterie","her":"SolarEdge","mod":"StorEdge Produkte","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":"LG Chem, BYD"},{"kat":"Speicher / Batterie","her":"SOLARMAX","mod":"MAX.STORAGE Ultimate","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Solarwatt","mod":"MyReserve","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Solax","mod":"X1&X3 & Hybrid-G3 / G4","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Solplanet","mod":"ASW","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"sonnenBatterie","mod":"10","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"sonnenBatterie","mod":"eco 7, eco 8","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"sonnenBatterie","mod":"hybrid 9.53","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"sonnenBatterie","mod":"performance, performance+","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Studer Innotec","mod":"Next3","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Sungrow","mod":"SH15T/SH20T/SH25T","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Sungrow","mod":"SH5.0-10RT","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Tesla","mod":"Powerwall 2","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"VARTA","mod":"Storage, element, link, pulse","anb":[],"hw":[],"fun":["Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Speicher / Batterie","her":"Victron","mod":"Venus / Cerbo Gateway","anb":[],"hw":[],"fun":["Aktive Steuerung","Speichermessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"ABB","mod":"EVLunic Pro S und Pro M","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"ABB","mod":"Terra AC","anb":["Modbus TCP"],"hw":["Modbus TCP"],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":"nur MID via Modbus TCP"},{"kat":"Wallbox","her":"ABB","mod":"Terra AC (OCPP)","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"ABL","mod":"Wallbox eM4 (OCPP)","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"ABL","mod":"Wallbox eMH2 (OCPP)","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Alfen","mod":"Eve Double Pro-line mit LBA-Lizenz","anb":[],"hw":["LBA-Lizenz"],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung","Lizenz erforderlich"],"st":"Unterstützt","url":"","note":"inkl. automatische 1- / 3-Phasen Umschaltung"},{"kat":"Wallbox","her":"Alfen","mod":"Eve SCN","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Alfen","mod":"Eve Single Pro-line mit LBA-Lizenz","anb":[],"hw":["LBA-Lizenz"],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung","Lizenz erforderlich"],"st":"Unterstützt","url":"","note":"inkl. automatische 1- / 3-Phasen Umschaltung"},{"kat":"Wallbox","her":"Alfen","mod":"Eve Single S-line mit LBA-Lizenz","anb":[],"hw":["LBA-Lizenz"],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung","Lizenz erforderlich"],"st":"Unterstützt","url":"","note":"inkl. automatische 1- / 3-Phasen Umschaltung"},{"kat":"Wallbox","her":"Autel","mod":"MaxiCharger AC (OCPP)","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Charge Amps","mod":"Dawn (OCPP)","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Charge Amps","mod":"Halo","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Clemap","mod":"Floem Ladepunkt","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Compleo","mod":"Solo (OCPP)","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Compleo / Innogy","mod":"eBox","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Dazebox","mod":"Home","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"easee","mod":"Charge Home, Charge Lite, Charge Up, Charge Max","anb":[],"hw":[],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung"],"st":"Unterstützt","url":"","note":"inkl. automatische 1- / 3-Phasen Umschaltung"},{"kat":"Wallbox","her":"easee","mod":"Charge, Charge Core","anb":[],"hw":[],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung"],"st":"Unterstützt","url":"","note":"inkl. automatische 1- / 3-Phasen Umschaltung"},{"kat":"Wallbox","her":"Elli / VW","mod":"Ladestation","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"EM2GO","mod":"AC Wallbox (OCPP)","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Enelion","mod":"Lumina (OCPP)","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Etrel","mod":"Inch Home","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"EVBox","mod":"Elvi (OCPP)","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"EVBox","mod":"Livo","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"EVBuddy","mod":"smart Ladestation","anb":[],"hw":[],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung"],"st":"Unterstützt","url":"","note":"inkl. automatische 1- / 3-Phasen Umschaltung"},{"kat":"Wallbox","her":"Evtec","mod":"ospeso&charge","anb":["Modbus TCP"],"hw":[],"fun":["Ladesteuerung","Lizenz erforderlich"],"st":"Unterstützt","url":"","note":"Modbus Lizenz"},{"kat":"Wallbox","her":"Fronius","mod":"Wattpilot","anb":["OCPP"],"hw":[],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung"],"st":"Unterstützt","url":"","note":"OCPP inkl. automatische 1- / 3-Phasen Umschaltung"},{"kat":"Wallbox","her":"GARO","mod":"Entity Pro","anb":["OCPP"],"hw":[],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung"],"st":"Unterstützt","url":"","note":"OCPP inkl. automatische 1- / 3-Phasen Umschaltung"},{"kat":"Wallbox","her":"GARO","mod":"Wallbox GLB+, eBox","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"go-e","mod":"Charger Gemini & Gemini flex","anb":[],"hw":[],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung"],"st":"Unterstützt","url":"","note":"inkl. automatische 1- / 3-Phasen Umschaltung"},{"kat":"Wallbox","her":"go-e","mod":"Charger HOME+","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"go-e","mod":"Charger HOME+ & Homefix V3","anb":[],"hw":[],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung"],"st":"Unterstützt","url":"","note":"inkl. automatische 1- / 3-Phasen Umschaltung"},{"kat":"Wallbox","her":"Hager","mod":"witty plus","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Hardy Barth","mod":"Moon Connect Wallbox","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":"cPµ2, cPH2 & cPP2"},{"kat":"Wallbox","her":"Juice","mod":"Charger me 1, 2, 3","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Eingeschränkt","url":"","note":"ohne Zähler, limitierte Funktionalität"},{"kat":"Wallbox","her":"KEBA","mod":"KeContact P30 c-series und x-series","anb":["Lokal (UDP)"],"hw":[],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung"],"st":"Unterstützt","url":"","note":"lokal UDP, via KeContact S10 inkl. automatische 1- / 3-Phasen Umschaltung"},{"kat":"Wallbox","her":"KEBA","mod":"KeContact P30 c-series und x-series (OCPP)","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"KEBA","mod":"KeContact P40 & P40 Pro","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Mennekes","mod":"4 Business","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Mennekes","mod":"Amedio Professional, Amtron Xtra, Premium, Professional, Charge Control, 4You 510, 4You 560","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"NexBlue","mod":"Edge charger (OCPP)","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"NRGkick","mod":"Mobile Ladestation","anb":[],"hw":[],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung"],"st":"Unterstützt","url":"","note":"inkl. automatische 1- / 3-Phasen Umschaltung"},{"kat":"Wallbox","her":"OCPP-Ladestationen","mod":"Allgemein","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Optec","mod":"GLB+, eBox","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Partino","mod":"Singly ONE","anb":[],"hw":[],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung"],"st":"Unterstützt","url":"","note":"inkl. automatische 1- / 3-Phasen Umschaltung"},{"kat":"Wallbox","her":"Peblar","mod":"Home & Business","anb":[],"hw":[],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung"],"st":"Unterstützt","url":"","note":"inkl. automatische 1- / 3-Phasen Umschaltung"},{"kat":"Wallbox","her":"Phoenix Contact","mod":"CHARX","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"POWERJames","mod":"Wallbox Charge S (OCPP)","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"RAEDIAN","mod":"NEO & NEX (OCPP)","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Schneider Electric","mod":"EVLink","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Schneider Electric","mod":"EVlink Pro AC","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"smart-me","mod":"Pico Ladestation","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"SMARTFOX","mod":"Pro Charger","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"SolarEdge","mod":"EV Charger SE-EVK22XXX-01","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Solplanet","mod":"Apollo Wallbox","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Spelsberg","mod":"Wallbox Smart Pro (OCPP) - BETA","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Beta","url":"","note":""},{"kat":"Wallbox","her":"sun2wheel","mod":"tiny-11 (OCPP)","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"sun2wheel","mod":"two-way-10","anb":["Modbus TCP"],"hw":[],"fun":["Ladesteuerung","Lizenz erforderlich"],"st":"Unterstützt","url":"","note":"Modbus Lizenz"},{"kat":"Wallbox","her":"sun2wheel","mod":"two-way-digital","anb":["Modbus TCP"],"hw":[],"fun":["Ladesteuerung","Lizenz erforderlich"],"st":"Unterstützt","url":"","note":"Modbus Lizenz"},{"kat":"Wallbox","her":"Teltonika","mod":"TeltoCharge","anb":["OCPP"],"hw":[],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung"],"st":"Unterstützt","url":"","note":"OCPP inkl. automatische 1- / 3-Phasen Umschaltung"},{"kat":"Wallbox","her":"Vestel","mod":"EVC04-AC11/22 Home Smart","anb":[],"hw":["Kürzel SW"],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":"mit Kürzel SW"},{"kat":"Wallbox","her":"Wallbe","mod":"Eco 2.0","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Eingeschränkt","url":"","note":"ohne Zähler, limitierte Funktionalität"},{"kat":"Wallbox","her":"Wallbe","mod":"Pro","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Wallbox","mod":"PulsarPlus (OCPP)","anb":["OCPP"],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Webasto","mod":"Live","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Webasto","mod":"Next","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Webasto","mod":"Unite","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Weidmüller","mod":"AC smart Eco (kein Zähler), Value und Advanced","anb":[],"hw":[],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung"],"st":"Eingeschränkt","url":"","note":"inkl. automatische 1- / 3-Phasen Umschaltung"},{"kat":"Wallbox","her":"Weidmüller","mod":"Business","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Zaptec","mod":"Go","anb":[],"hw":[],"fun":["Ladesteuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wallbox","her":"Zaptec","mod":"Pro und Home","anb":[],"hw":[],"fun":["1-/3-Phasen-Umschaltung","Ladesteuerung"],"st":"Unterstützt","url":"","note":"inkl. automatische 1- / 3-Phasen Umschaltung, begrenzte Anzahl pro Ladung"},{"kat":"Elektroauto","her":"Audi","mod":"e-tron","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":""},{"kat":"Elektroauto","her":"BMW","mod":"alle vernetzten Modelle","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":""},{"kat":"Elektroauto","her":"Citroën","mod":"alle vernetzten Modelle","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":""},{"kat":"Elektroauto","her":"Cupra","mod":"alle vernetzten Modelle","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":""},{"kat":"Elektroauto","her":"Dacia","mod":"alle vernetzten Modelle","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":""},{"kat":"Elektroauto","her":"Fiat","mod":"alle vernetzten Modelle","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":"alle 3 Monate neu anmelden"},{"kat":"Elektroauto","her":"Hyundai","mod":"alle vernetzten Modelle","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":""},{"kat":"Elektroauto","her":"KIA","mod":"alle vernetzten Modelle","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":""},{"kat":"Elektroauto","her":"Mercedes","mod":"alle vernetzten Modelle","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":""},{"kat":"Elektroauto","her":"MINI","mod":"alle vernetzten Modelle","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":""},{"kat":"Elektroauto","her":"Opel","mod":"alle vernetzten Modelle","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":""},{"kat":"Elektroauto","her":"Polestar","mod":"alle vernetzten Modelle","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":""},{"kat":"Elektroauto","her":"Renault","mod":"alle vernetzten Modelle","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":""},{"kat":"Elektroauto","her":"Seat","mod":"alle vernetzten Modelle","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":""},{"kat":"Elektroauto","her":"Tesla","mod":"alle vernetzten Modelle","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":""},{"kat":"Elektroauto","her":"Volkswagen","mod":"alle vernetzten Modelle","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":""},{"kat":"Elektroauto","her":"Škoda","mod":"alle vernetzten Modelle","anb":["Hersteller-Cloud"],"hw":[],"fun":["Ladestand (SoC)"],"st":"Unterstützt","url":"","note":""},{"kat":"Wärmepumpe","her":"Buderus","mod":"Logatherm WLW186i AR","anb":[],"hw":[],"fun":["Wärmepumpen-Steuerung"],"st":"Unterstützt","url":"https://cms-sandbox.thermondo.de/test-page/subpage2/","note":""},{"kat":"Wärmepumpe","her":"LG","mod":"Therma V R290","anb":[],"hw":[],"fun":["Wärmepumpen-Steuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Wärmepumpe","her":"LG","mod":"Therma V R32","anb":[],"hw":[],"fun":["Wärmepumpen-Steuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Smart Plug / Relais","her":"Advantech","mod":"WISE-4060","anb":[],"hw":[],"fun":["Schalten"],"st":"Unterstützt","url":"","note":""},{"kat":"Smart Plug / Relais","her":"GUDE","mod":"2302 / 2312 / 2314 Relaisbox","anb":[],"hw":[],"fun":["Schalten"],"st":"Unterstützt","url":"","note":"direkt Leistung bis 16A schalten bei definierbarem PV-Überschuss, 4 / 3 Kanäle"},{"kat":"Smart Plug / Relais","her":"myStrom","mod":"WiFi Switch","anb":["WLAN"],"hw":[],"fun":["Schalten"],"st":"Unterstützt","url":"","note":""},{"kat":"Smart Plug / Relais","her":"myStrom","mod":"WiFi Switch Zero","anb":["WLAN"],"hw":[],"fun":["Schalten"],"st":"Unterstützt","url":"","note":""},{"kat":"Smart Plug / Relais","her":"Rutenbeck","mod":"TCR IP 4","anb":[],"hw":[],"fun":["Schalten"],"st":"Unterstützt","url":"","note":""},{"kat":"Smart Plug / Relais","her":"Shelly","mod":"1 / 1PM / 2.5 / Mini Gen3 / Plug S / Plus 1PM Mini / Plus Plug S / S","anb":[],"hw":[],"fun":["Schalten"],"st":"Unterstützt","url":"","note":""},{"kat":"Smart Plug / Relais","her":"Shelly","mod":"Pro 1 / Pro 1PM / Pro 2 / Pro 2PM / Pro 3 / Pro 4PM","anb":[],"hw":[],"fun":["Schalten"],"st":"Unterstützt","url":"","note":""},{"kat":"Smart Plug / Relais","her":"smart-me","mod":"Plug","anb":[],"hw":[],"fun":["Schalten"],"st":"Unterstützt","url":"","note":"z. B. für E-Bike"},{"kat":"Smart Plug / Relais","her":"smart-me","mod":"Relais am 3-Phasen Zähler","anb":[],"hw":[],"fun":["Schalten"],"st":"Unterstützt","url":"","note":""},{"kat":"Smart Plug / Relais","her":"Tasmota","mod":"FW","anb":[],"hw":[],"fun":["Schalten"],"st":"Unterstützt","url":"","note":""},{"kat":"Temperaturmessung","her":"GUDE","mod":"2302","anb":[],"hw":[],"fun":["Externer Sensor","Temperaturmessung"],"st":"Unterstützt","url":"","note":"externer Sensor"},{"kat":"Temperaturmessung","her":"Rutenbeck","mod":"TCR IP 4","anb":[],"hw":[],"fun":["Externer Sensor","Temperaturmessung"],"st":"Unterstützt","url":"","note":"externer Sensor"},{"kat":"Temperaturmessung","her":"Shelly","mod":"1","anb":[],"hw":[],"fun":["Externer Sensor","Temperaturmessung"],"st":"Unterstützt","url":"","note":"externer Sensor"},{"kat":"Temperaturmessung","her":"Shelly","mod":"Plus AddOn (nur für Shelly 1 (PM) & Shelly Plus 1 (PM))","anb":[],"hw":[],"fun":["Temperaturmessung"],"st":"Unterstützt","url":"","note":""},{"kat":"Input Geräte","her":"Advantech","mod":"WISE-4060","anb":[],"hw":[],"fun":["Lastabwurf"],"st":"Unterstützt","url":"","note":""},{"kat":"Input Geräte","her":"GUDE","mod":"2302","anb":[],"hw":[],"fun":["Lastabwurf"],"st":"Unterstützt","url":"","note":""},{"kat":"Input Geräte","her":"Janitza","mod":"UMG 512-PRO / 604-PRO","anb":[],"hw":[],"fun":["Lastabwurf"],"st":"Unterstützt","url":"","note":""},{"kat":"Input Geräte","her":"Shelly","mod":"Pro 1 / Pro 1PM / Pro 2 / Pro 2PM / Pro 4PM","anb":[],"hw":[],"fun":["Lastabwurf"],"st":"Unterstützt","url":"","note":""},{"kat":"Input Geräte","her":"Siemens","mod":"SENTRON PAC2200","anb":[],"hw":[],"fun":["Lastabwurf"],"st":"Unterstützt","url":"","note":""},{"kat":"Input Geräte","her":"smart-me","mod":"Zähler mit Eingang","anb":[],"hw":["Eingang"],"fun":["Lastabwurf"],"st":"Unterstützt","url":"","note":""},{"kat":"Externe Anzeigen","her":"Dingz","mod":"LED","anb":[],"hw":[],"fun":["Anzeige"],"st":"Unterstützt","url":"","note":"Ampelanzeige Überschuss"},{"kat":"Externe Anzeigen","her":"Feller","mod":"Wiser Home App Widget","anb":[],"hw":[],"fun":["Anzeige"],"st":"Unterstützt","url":"","note":""},{"kat":"Externe Anzeigen","her":"Inklay","mod":"ePaper Display","anb":[],"hw":[],"fun":["Anzeige"],"st":"Unterstützt","url":"","note":""},{"kat":"Externe Anzeigen","her":"LaMetric","mod":"Time Smart-Display","anb":[],"hw":[],"fun":["Anzeige"],"st":"Unterstützt","url":"","note":""},{"kat":"Externe Anzeigen","her":"myStrom","mod":"Wifi Button Solar Manager Edition","anb":["WLAN"],"hw":[],"fun":["Anzeige"],"st":"Unterstützt","url":"","note":""},{"kat":"Externe Anzeigen","her":"SOLAR STATION","mod":"Display","anb":[],"hw":[],"fun":["Anzeige"],"st":"Unterstützt","url":"","note":""},{"kat":"Externe Anzeigen","her":"Solarfox","mod":"Displays","anb":[],"hw":[],"fun":["Anzeige"],"st":"Unterstützt","url":"","note":""},{"kat":"Externe Anzeigen","her":"TIDBYT","mod":"retro-style display","anb":[],"hw":[],"fun":["Anzeige"],"st":"Unterstützt","url":"","note":""},{"kat":"Haushaltsgeräte","her":"Bosch","mod":"Home Connect","anb":["Hersteller-Cloud"],"hw":[],"fun":["Startzeit-Steuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Haushaltsgeräte","her":"Gaggenau","mod":"Home Connect","anb":["Hersteller-Cloud"],"hw":[],"fun":["Startzeit-Steuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Haushaltsgeräte","her":"Miele","mod":"vernetzbare Geräte gemäß Liste","anb":[],"hw":[],"fun":["Startzeit-Steuerung"],"st":"Unterstützt","url":"","note":"ohne Waschtrockner"},{"kat":"Haushaltsgeräte","her":"Neff","mod":"Home Connect","anb":["Hersteller-Cloud"],"hw":[],"fun":["Startzeit-Steuerung"],"st":"Unterstützt","url":"","note":""},{"kat":"Haushaltsgeräte","her":"Siemens","mod":"Home Connect","anb":["Hersteller-Cloud"],"hw":[],"fun":["Startzeit-Steuerung"],"st":"Unterstützt","url":"","note":""}];
+  var KATS = ["Wechselrichter", "Energiemessung", "Speicher / Batterie", "Wallbox", "Elektroauto", "Wärmepumpe", "Smart Plug / Relais", "Temperaturmessung", "Input Geräte", "Externe Anzeigen", "Haushaltsgeräte"];
+  var ICONS = {"Wechselrichter": "<svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2.5\"></rect><path d=\"M6.5 14c1.2-4 2.9-4 4 0s2.8 4 4-0\"></path></svg>", "Energiemessung": "<svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3.5 18a9 9 0 1 1 17 0\"></path><path d=\"M12 18l4.2-5.2\"></path><circle cx=\"12\" cy=\"18\" r=\"1.1\" fill=\"currentColor\" stroke=\"none\"></circle></svg>", "Speicher / Batterie": "<svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2.5\" y=\"7\" width=\"16\" height=\"10\" rx=\"2\"></rect><path d=\"M21.5 11v2\"></path><path d=\"M7.5 12h6\"></path></svg>", "Wallbox": "<svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"4\" y=\"3\" width=\"11\" height=\"18\" rx=\"2\"></rect><path d=\"M7.5 8h4M7.5 11.5h4\"></path><path d=\"M15 9h3.2a1.8 1.8 0 0 1 1.8 1.8V16\"></path><circle cx=\"20\" cy=\"17.6\" r=\"1.6\"></circle></svg>", "Elektroauto": "<svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 16.5V13l2-5h12l2 5v3.5\"></path><path d=\"M2.5 16.5h19\"></path><circle cx=\"7.5\" cy=\"18\" r=\"1.6\"></circle><circle cx=\"16.5\" cy=\"18\" r=\"1.6\"></circle><path d=\"M11.6 3l-1.6 3h3l-1.6 3\"></path></svg>", "Wärmepumpe": "<svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"4.5\" width=\"18\" height=\"15\" rx=\"2.5\"></rect><circle cx=\"12\" cy=\"12\" r=\"4\"></circle><path d=\"M12 8v8M8 12h8\"></path></svg>", "Smart Plug / Relais": "<svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 2.5v5M15 2.5v5\"></path><path d=\"M6 7.5h12v3a6 6 0 0 1-6 6 6 6 0 0 1-6-6z\"></path><path d=\"M12 16.5v5\"></path></svg>", "Temperaturmessung": "<svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14 14.8V4.5a2 2 0 0 0-4 0v10.3a4 4 0 1 0 4 0z\"></path><path d=\"M12 8.5v6\"></path></svg>", "Input Geräte": "<svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 12h7\"></path><path d=\"M7 8.5 10.5 12 7 15.5\"></path><rect x=\"13\" y=\"5.5\" width=\"8\" height=\"13\" rx=\"2\"></rect></svg>", "Externe Anzeigen": "<svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2.5\" y=\"4\" width=\"19\" height=\"12.5\" rx=\"2\"></rect><path d=\"M8.5 20h7M12 16.5V20\"></path><path d=\"M7 10.5h3l1.5-2.5 2 5 1.5-2.5h2.5\"></path></svg>", "Haushaltsgeräte": "<svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"4\" y=\"2.8\" width=\"16\" height=\"18.4\" rx=\"2.5\"></rect><circle cx=\"12\" cy=\"14\" r=\"4.2\"></circle><path d=\"M7.5 6.5h2M16.5 6.5h.01\"></path></svg>"};
+  var LABEL = {her:"Hersteller", anb:"Anbindung", fun:"Funktionen", st:"Status"};
+  var sel = {her:[], anb:[], fun:[], st:[]};
+  var open = {};
+  var q = "";
+
+  var $ = function(id){ return document.getElementById(id); };
+  var grid = $("grid"), sections = $("sections"), chips = $("chips"), hint = $("hint");
+
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+
+  function values(f){
+    var c = {};
+    DATA.forEach(function(r){
+      var v = r[f];
+      if (Array.isArray(v)){ if(!v.length){ c["noch zu ergänzen"]=(c["noch zu ergänzen"]||0)+1; } v.forEach(function(x){ c[x]=(c[x]||0)+1; }); }
+      else { c[v]=(c[v]||0)+1; }
+    });
+    return Object.keys(c).sort(function(a,b){ return a.localeCompare(b,"de"); }).map(function(k){ return {v:k,n:c[k]}; });
+  }
+
+  function matchField(r,f){
+    var p = sel[f];
+    if (!p.length) return true;
+    var v = r[f];
+    if (Array.isArray(v)){
+      if (!v.length) return p.indexOf("noch zu ergänzen") !== -1;
+      return v.some(function(x){ return p.indexOf(x) !== -1; });
+    }
+    return p.indexOf(v) !== -1;
+  }
+
+  function rowsFor(kat){
+    var needle = q.trim().toLowerCase();
+    return DATA.filter(function(r){
+      if (r.kat !== kat) return false;
+      if (!["her","anb","fun","st"].every(function(f){ return matchField(r,f); })) return false;
+      if (!needle) return true;
+      return (r.her+" "+r.mod+" "+r.kat+" "+r.anb.join(" ")+" "+r.hw.join(" ")+" "+r.fun.join(" ")+" "+r.note)
+              .toLowerCase().indexOf(needle) !== -1;
+    });
+  }
+
+  function tagList(arr, cls){
+    if (!arr.length) return '<span class="tbd">noch zu ergänzen</span>';
+    return '<div class="tags">' + arr.map(function(t){ return '<span class="tag '+(cls||"")+'">'+esc(t)+"</span>"; }).join("") + "</div>";
+  }
+  function stCls(s){ return s === "Unterstützt" ? "st--ok" : (s === "Beta" ? "st--beta" : "st--lim"); }
+  function dl(r){
+    return r.url ? '<a class="dl" href="'+esc(r.url)+'" target="_blank" rel="noopener">Anleitung ansehen</a>'
+                 : '<span class="dl dl--none">folgt</span>';
+  }
+
+  function tableFor(rows){
+    return '<div class="tablewrap"><table><thead><tr>'
+      + "<th>Hersteller</th><th>Typ / Modell</th><th>Anbindung</th><th>Hardware</th><th>Funktionen</th><th>Status</th><th>Anleitung</th>"
+      + "</tr></thead><tbody>"
+      + rows.map(function(r){
+          return "<tr>"
+            + '<td class="c-her">'+esc(r.her)+"</td>"
+            + '<td class="c-mod">'+esc(r.mod)+(r.note?'<span class="note">'+esc(r.note)+"</span>":"")+"</td>"
+            + "<td>"+tagList(r.anb)+"</td>"
+            + "<td>"+(r.hw.length ? tagList(r.hw) : '<span class="tbd">keine</span>')+"</td>"
+            + "<td>"+tagList(r.fun,"tag--fn")+"</td>"
+            + '<td><span class="st '+stCls(r.st)+'">'+esc(r.st)+"</span></td>"
+            + "<td>"+dl(r)+"</td></tr>";
+        }).join("")
+      + "</tbody></table></div>"
+      + '<div class="cards">' + rows.map(function(r){
+          return '<article class="card"><div class="card__head"><div>'
+            + '<div class="card__her">'+esc(r.her)+"</div>"
+            + '<div class="card__mod">'+esc(r.mod)+"</div></div>"
+            + '<span class="st '+stCls(r.st)+'">'+esc(r.st)+"</span></div>"
+            + '<div class="card__row"><b>Anbindung</b><span>'+(r.anb.length?esc(r.anb.join(", ")):'<i class="tbd">noch zu ergänzen</i>')+"</span></div>"
+            + '<div class="card__row"><b>Funktionen</b><span>'+esc(r.fun.join(", "))+"</span></div>"
+            + '<div class="card__row"><b>Anleitung</b><span>'+dl(r)+"</span></div></article>";
+        }).join("") + "</div>";
+  }
+
+  function renderGrid(counts){
+    grid.innerHTML = KATS.map(function(k){
+      var n = counts[k] || 0;
+      var isOpen = !!open[k] && n > 0;
+      return '<button class="cat" type="button" data-k="'+esc(k)+'" aria-expanded="'+isOpen+'" data-empty="'+(n?0:1)+'"'+(n?"":" disabled")+'>'
+        + '<span class="cat__ico">'+(ICONS[k]||"")+"</span>"
+        + '<span class="cat__txt"><span class="cat__name">'+esc(k)+"</span>"
+        + '<span class="cat__n">'+n+" Gerät"+(n===1?"":"e")+"</span></span>"
+        + '<span class="cat__chev"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M6 9l6 6 6-6"></path></svg></span>'
+        + "</button>";
+    }).join("");
+  }
+
+  function render(){
+    var counts = {}, total = 0;
+    KATS.forEach(function(k){ var n = rowsFor(k).length; counts[k] = n; total += n; });
+
+    renderGrid(counts);
+
+    sections.innerHTML = KATS.filter(function(k){ return open[k] && counts[k]; }).map(function(k){
+      var rows = rowsFor(k);
+      return '<section class="sec" data-k="'+esc(k)+'"><div class="sec__head">'
+        + "<h3>"+esc(k)+'</h3><span class="sec__n">'+rows.length+" Gerät"+(rows.length===1?"":"e")+"</span>"
+        + '<button class="sec__close" type="button" data-close="'+esc(k)+'">Ausblenden'
+        + '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 15l6-6 6 6"></path></svg></button>'
+        + '</div><div class="sec__body">' + tableFor(rows) + "</div></section>";
+    }).join("");
+
+    var anyOpen = KATS.some(function(k){ return open[k] && counts[k]; });
+    if (!total){
+      hint.hidden = false;
+      hint.innerHTML = "<b>Kein Gerät gefunden</b>Andere Schreibweise probieren oder die Filter zurücksetzen.";
+    } else if (!anyOpen){
+      hint.hidden = false;
+      hint.innerHTML = "<b>Nichts eingeblendet</b>Wählen Sie oben eine Kategorie, um die Geräte zu sehen.";
+    } else {
+      hint.hidden = true;
+    }
+
+    $("pickHint").textContent = q.trim() || Object.keys(sel).some(function(f){ return sel[f].length; })
+      ? total + " Gerät" + (total===1?"":"e") + " passen zu Ihrer Suche."
+      : "Tippen Sie auf eine Kategorie, um die Geräte ein- oder auszublenden.";
+
+    chips.innerHTML = Object.keys(sel).reduce(function(acc,f){
+      return acc.concat(sel[f].map(function(v){
+        return '<span class="chip">'+esc(LABEL[f])+": "+esc(v)+'<button type="button" data-f="'+f+'" data-v="'+esc(v)+'" aria-label="Filter entfernen">×</button></span>';
+      }));
+    }, []).join("");
+
+    Object.keys(sel).forEach(function(f){
+      var b = document.querySelector('.dd[data-f="'+f+'"] .dd__btn');
+      if (!b) return;
+      b.classList.toggle("has", sel[f].length > 0);
+      var n = b.querySelector(".dd__n");
+      if (n){ n.textContent = sel[f].length || ""; n.hidden = !sel[f].length; }
+    });
+  }
+
+  grid.addEventListener("click", function(e){
+    var b = e.target.closest(".cat");
+    if (!b || b.disabled) return;
+    var k = b.getAttribute("data-k");
+    open[k] = !open[k];
+    render();
+    if (open[k]){
+      var s = sections.querySelector('.sec[data-k="'+CSS.escape(k)+'"]');
+      if (s) s.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+  });
+
+  sections.addEventListener("click", function(e){
+    var b = e.target.closest("[data-close]");
+    if (!b) return;
+    open[b.getAttribute("data-close")] = false;
+    render();
+    document.getElementById("grid").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+
+  $("openAll").addEventListener("click", function(){ KATS.forEach(function(k){ open[k] = true; }); render(); });
+  $("closeAll").addEventListener("click", function(){ KATS.forEach(function(k){ open[k] = false; }); render(); });
+
+  function buildDropdown(el){
+    var f = el.getAttribute("data-f");
+    el.innerHTML = '<button class="dd__btn" type="button" aria-expanded="false">'+LABEL[f]
+      + '<span class="dd__n" hidden></span>'
+      + '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"></path></svg></button>'
+      + '<div class="dd__panel" hidden>' + values(f).map(function(o){
+          return '<label class="dd__opt"><input type="checkbox" value="'+esc(o.v)+'"><span>'+esc(o.v)+"</span><span>"+o.n+"</span></label>";
+        }).join("") + "</div>";
+    var btn = el.querySelector(".dd__btn"), panel = el.querySelector(".dd__panel");
+    btn.addEventListener("click", function(e){
+      e.stopPropagation();
+      var willOpen = panel.hidden;
+      document.querySelectorAll(".dd__panel").forEach(function(p){ p.hidden = true; });
+      document.querySelectorAll(".dd__btn").forEach(function(b){ b.setAttribute("aria-expanded","false"); });
+      panel.hidden = !willOpen;
+      btn.setAttribute("aria-expanded", String(willOpen));
+    });
+    panel.addEventListener("click", function(e){ e.stopPropagation(); });
+    panel.addEventListener("change", function(e){
+      var v = e.target.value;
+      if (e.target.checked){ if (sel[f].indexOf(v) === -1) sel[f].push(v); }
+      else sel[f] = sel[f].filter(function(x){ return x !== v; });
+      autoOpen();
+      render();
+    });
+  }
+
+  function autoOpen(){
+    var active = q.trim() || Object.keys(sel).some(function(f){ return sel[f].length; });
+    if (!active) return;
+    KATS.forEach(function(k){ open[k] = rowsFor(k).length > 0; });
+  }
+
+  document.querySelectorAll(".dd").forEach(buildDropdown);
+  document.addEventListener("click", function(){
+    document.querySelectorAll(".dd__panel").forEach(function(p){ p.hidden = true; });
+    document.querySelectorAll(".dd__btn").forEach(function(b){ b.setAttribute("aria-expanded","false"); });
+  });
+
+  chips.addEventListener("click", function(e){
+    var b = e.target.closest("button[data-f]");
+    if (!b) return;
+    var f = b.getAttribute("data-f"), v = b.getAttribute("data-v");
+    sel[f] = sel[f].filter(function(x){ return x !== v; });
+    var cb = document.querySelector('.dd[data-f="'+f+'"] input[value="'+v.replace(/"/g,'\\"')+'"]');
+    if (cb) cb.checked = false;
+    render();
+  });
+
+  $("q").addEventListener("input", function(e){ q = e.target.value; autoOpen(); render(); });
+  $("clear").addEventListener("click", function(){
+    Object.keys(sel).forEach(function(f){ sel[f] = []; });
+    q = ""; $("q").value = "";
+    document.querySelectorAll('.dd input[type="checkbox"]').forEach(function(c){ c.checked = false; });
+    render();
+  });
+
+  open[KATS[0]] = true;
+  render();
+})();
+</script>
+
+</body>
+</html>
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Mit thermondo smart kompatible Geräte – nach Kategorie ein- und ausklappbar, filterbar nach Hersteller, Anbindung und Funktionen.">
+</head>
+<body>
+<title>Kompatible Geräte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{
+  --red:#EC2D3F; --red-dark:#C41F30; --red-soft:#FDEAEC;
+  --ink:#0E0E10; --ink-2:#4A4A52; --muted:#84848E;
+  --bg:#FFFFFF; --surface:#FFFFFF; --surface-2:#F7F7F8; --line:#E4E4E8; --line-2:#EFEFF2;
+  --green:#0E8A4F; --green-soft:#E6F4EC; --amber:#9A6200; --amber-soft:#FDF2DF;
+  --display:"Outfit","Trebuchet MS",sans-serif;
+  --body:"Public Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --r:12px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --red:#FF5765; --red-dark:#FF8892; --red-soft:#3A1519;
+  --ink:#F4F4F6; --ink-2:#BDBDC6; --muted:#8B8B96;
+  --bg:#0E0E10; --surface:#17171A; --surface-2:#1D1D21; --line:#2C2C32; --line-2:#232328;
+  --green:#4ED68C; --green-soft:#12301F; --amber:#E0A843; --amber-soft:#2F2411;
+}}
+:root[data-theme="dark"]{
+  --red:#FF5765; --red-dark:#FF8892; --red-soft:#3A1519;
+  --ink:#F4F4F6; --ink-2:#BDBDC6; --muted:#8B8B96;
+  --bg:#0E0E10; --surface:#17171A; --surface-2:#1D1D21; --line:#2C2C32; --line-2:#232328;
+  --green:#4ED68C; --green-soft:#12301F; --amber:#E0A843; --amber-soft:#2F2411;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.015em;text-wrap:balance}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+/* ---------- header ---------- */
+.top{border-bottom:1px solid var(--line);background:var(--surface)}
+.top__bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
+.logo{height:26px;width:auto;color:var(--ink);display:block}
+.top__tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hero{padding-block:44px 8px}
+.hero h1{font-size:clamp(30px,5vw,50px);line-height:1.04;font-weight:700;max-width:16ch}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero p{margin:16px 0 0;max-width:62ch;color:var(--ink-2);font-size:clamp(15px,1.4vw,17px)}
+.stats{display:flex;flex-wrap:wrap;gap:10px 34px;margin-top:26px}
+.stat{display:flex;flex-direction:column}
+.stat b{font-family:var(--display);font-size:25px;font-weight:700;line-height:1.1}
+.stat span{font-size:12.5px;color:var(--muted)}
+.stat--red b{color:var(--red)}
+
+/* ---------- search + filters ---------- */
+.bar{position:sticky;top:0;z-index:30;background:var(--surface);border-bottom:1px solid var(--line);padding-block:13px;margin-top:30px}
+.bar__row{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.search{position:relative;flex:1 1 260px;min-width:0}
+.search input{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:11px 16px 11px 42px}
+.search input:focus{background:var(--surface)}
+.search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.dd{position:relative}
+.dd__btn{font:inherit;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:10px 14px;white-space:nowrap}
+.dd__btn:hover{border-color:var(--muted)}
+.dd__btn.has{border-color:var(--red);color:var(--red-dark);background:var(--red-soft)}
+.dd__n{font-family:var(--mono);font-size:11px;background:var(--red);color:#fff;border-radius:999px;min-width:18px;height:18px;display:inline-grid;place-items:center;padding:0 5px}
 .dd__panel{position:absolute;top:calc(100% + 8px);left:0;min-width:250px;max-height:330px;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:0 18px 40px -18px rgba(0,0,0,.35);padding:8px;z-index:40}
 .dd__panel[hidden]{display:none}
 .dd__opt{display:flex;align-items:center;gap:10px;padding:7px 9px;border-radius:7px;cursor:pointer;font-size:14px}
