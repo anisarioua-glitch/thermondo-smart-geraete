@@ -2,6 +2,640 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Buderus MX 400 Gateway mit thermondo smart verbinden – Schritt für Schritt.">
+<title>Buderus MX 400 mit thermondo smart verbinden</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600;700&display=swap">
+<style>
+:root{
+  --red:#F60439; --red-dark:#C4002C; --red-soft:#FEECF0;
+  --ink:#1A1A1A; --text:#212529; --text-2:#323232; --muted:#6E6E6E;
+  --bg:#FFFFFF; --grey:#F5F5F5; --line:#E3E3E3; --line-2:#EFEFEF;
+  --green:#0B7A3B; --green-soft:#E7F4EC; --blue:#0B6FB8;
+  --head:"Mont Heavy","Montserrat","Open Sans",sans-serif;
+  --body:"Open Sans",system-ui,sans-serif;
+  --r:2px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--head);color:var(--ink);margin:0;font-weight:800;letter-spacing:-.01em;text-wrap:balance}
+a{color:var(--ink)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.col{max-width:960px;margin:0 auto}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+/* ---------- Kopf ---------- */
+.intro{padding-block:48px 8px;text-align:center}
+.intro h1{font-size:clamp(28px,4.2vw,46px);line-height:1.12}
+.intro p{margin:20px auto 0;max-width:62ch;font-size:clamp(16px,1.5vw,20px);line-height:1.6;color:var(--text-2)}
+.intro b{font-weight:700;color:var(--ink)}
+
+/* ---------- Kapitel ---------- */
+.chapters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:30px 0 0;padding:0;list-style:none}
+.chapter{appearance:none;border:1px solid var(--line);background:#fff;color:var(--text-2);font:inherit;font-size:14px;
+  padding:8px 14px 8px 10px;border-radius:var(--r);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.chapter:hover{border-color:var(--ink)}
+.chapter__n{font-size:12px;font-weight:700;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;
+  background:var(--grey);color:var(--muted);flex:none}
+.chapter[aria-current="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chapter[aria-current="true"] .chapter__n{background:var(--red);color:#fff}
+.chapter.is-done .chapter__n{background:var(--green-soft);color:var(--green)}
+
+/* ---------- Player ---------- */
+.player{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:26px;align-items:start;margin-top:26px}
+@media (max-width:900px){.player{grid-template-columns:minmax(0,1fr)}}
+.stage{position:relative;background:var(--grey);border:1px solid var(--line);border-radius:var(--r);min-height:600px;
+  display:flex;align-items:center;justify-content:center;gap:24px;padding:24px 18px;overflow:hidden}
+@media (max-width:520px){.stage{min-height:540px;padding:16px 10px;gap:12px}}
+.stage__tag{position:absolute;top:12px;left:14px;font-size:11px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted)}
+
+.phone{position:relative;width:282px;flex:none;border-radius:30px;background:var(--ink);padding:9px;
+  box-shadow:0 14px 34px -16px rgba(0,0,0,.45)}
+@media (max-width:520px){.phone{width:246px}}
+.phone[hidden]{display:none}
+.phone__screen{position:relative;background:#fff;border-radius:22px;overflow:hidden;height:530px;display:flex;
+  flex-direction:column;font-size:9.5px;line-height:1.35;color:var(--text)}
+@media (max-width:520px){.phone__screen{height:470px}}
+.screen{padding:10px 11px;overflow:hidden;flex:1;display:flex;flex-direction:column;gap:6px}
+.screen[hidden]{display:none}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:2px 0 6px;font-weight:700;font-size:10px}
+.nav__gear,.nav__trash{width:18px;height:18px;display:grid;place-items:center;color:var(--muted)}
+.nav__back{color:var(--text-2);font-weight:400}
+.pill-row{display:flex;justify-content:space-between;font-size:8.5px;color:var(--muted);padding:0 2px}
+.badge{display:inline-block;padding:1px 6px;border-radius:var(--r);font-size:8px;font-weight:700;
+  background:var(--green-soft);color:var(--green)}
+.badge--err{background:var(--red-soft);color:var(--red-dark)}
+.rows{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:3px}
+.rows li{display:flex;justify-content:space-between;align-items:center;background:var(--grey);border:1px solid var(--line-2);
+  border-radius:var(--r);padding:5px 8px;font-size:9px;color:var(--text-2)}
+.rows li span{color:var(--muted);font-size:8px}
+.meters{display:flex;align-items:center;gap:10px;padding:6px 2px;border-bottom:1px solid var(--line-2)}
+.meters div{display:flex;flex-direction:column;line-height:1.2}
+.meters small{font-size:7.5px;color:var(--muted)}
+.meters b{font-size:9.5px}
+.meters .chips{margin-left:auto;flex-direction:row;gap:4px}
+.chip{background:#fff;border:1px solid var(--red);color:var(--red);border-radius:var(--r);padding:2px 7px;font-size:7.5px;font-weight:700}
+.tabs{display:flex;gap:4px;font-size:8px;color:var(--muted);padding:2px 0}
+.tabs span{padding:3px 8px;border-radius:var(--r);background:var(--grey)}
+.tabs .is-active{background:var(--red);color:#fff;font-weight:700}
+.dev{display:flex;align-items:center;gap:7px;border:1px solid var(--line-2);border-radius:var(--r);padding:6px 7px;background:#fff}
+.dev+.dev{margin-top:4px}
+.dev__idx{font-size:8px;color:var(--muted);width:8px}
+.dev__name{display:flex;flex-direction:column;flex:1;min-width:0;font-size:9px;font-weight:600}
+.dev__name small,.dev__val small{font-size:7.5px;color:var(--muted);font-weight:400}
+.dev__val{display:flex;flex-direction:column;font-size:8.5px;text-align:right}
+.dev__state{display:flex;flex-direction:column;align-items:flex-end;gap:2px;font-size:7.5px;color:var(--muted)}
+.fab{position:absolute;right:14px;bottom:14px;width:26px;height:26px;border-radius:50%;background:var(--red);color:#fff;
+  display:grid;place-items:center;font-size:15px;font-weight:700;line-height:1}
+[data-state="error"] .only-ok{display:none}
+[data-state="ok"] .only-error{display:none}
+.txt-err{color:var(--red);font-weight:700}
+.txt-ok{color:var(--green);font-weight:700}
+.field{border-bottom:1px solid var(--line-2);padding:5px 3px;border-radius:var(--r)}
+.field__label{display:block;font-size:7.5px;color:var(--muted)}
+.field__row{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:9px}
+.field--nav{display:flex;justify-content:space-between;align-items:center;font-size:9px;color:var(--text-2);padding:7px 3px}
+.dot-teal{width:11px;height:11px;border-radius:50%;background:#0FA9A2;flex:none}
+.link-inline{font-size:8px;color:var(--text-2);padding:2px 3px}
+.btn{font:inherit;border-radius:var(--r);border:1px solid transparent;font-size:8.5px;font-weight:700;padding:3px 9px;line-height:1.4}
+.btn--ghost{border-color:var(--red);color:var(--red);background:transparent}
+.btn--sec{border-color:var(--line);color:var(--text-2);background:#fff;flex:1;padding:6px 10px;font-size:9.5px;text-align:center}
+.btn--pri{background:var(--red);color:#fff;flex:1;padding:6px 10px;font-size:9.5px;text-align:center}
+.btn--pri.is-off{opacity:.42}
+.actions{display:flex;gap:7px;margin-top:auto;padding-top:8px}
+.checks{display:flex;flex-direction:column;gap:4px;padding:5px 3px;font-size:8.5px;color:var(--text-2)}
+.checks label{display:flex;gap:5px;align-items:center}
+.box{width:9px;height:9px;border-radius:1px;background:var(--red);flex:none;position:relative}
+.box::after{content:"";position:absolute;left:3px;top:1px;width:2px;height:5px;border:solid #fff;border-width:0 1.5px 1.5px 0;transform:rotate(42deg)}
+.is-hl{box-shadow:0 0 0 2px var(--red);background:rgba(246,4,57,.05)}
+.search{background:var(--grey);border:1px solid var(--line-2);border-radius:var(--r);padding:5px 8px;font-size:9px;color:var(--text-2)}
+.ip-loading{display:flex;flex-direction:column;align-items:center;gap:9px;padding:44px 0;color:var(--muted);font-size:9px;text-align:center}
+.spinner{width:22px;height:22px;border-radius:50%;border:2.5px solid var(--line);border-top-color:var(--red);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ip-item{border:1px solid var(--line-2);border-radius:var(--r);padding:7px 8px;display:flex;flex-direction:column;gap:1px;background:#fff}
+.ip-item b{font-size:8.5px}
+.ip-item small{font-size:7.5px;color:var(--muted)}
+.tap{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:2px solid var(--red);
+  background:rgba(246,4,57,.18);pointer-events:none;z-index:6;
+  animation:tapIn .5s cubic-bezier(.2,.9,.3,1) both, tapPulse 1.4s .5s ease-out infinite}
+.tap[hidden]{display:none}
+@keyframes tapIn{from{transform:scale(2.1);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes tapPulse{0%{box-shadow:0 0 0 0 rgba(246,4,57,.45)}70%,100%{box-shadow:0 0 0 14px transparent}}
+.timer{position:absolute;top:-14px;right:-16px;z-index:7;width:74px;height:74px;border-radius:50%;background:#fff;
+  box-shadow:0 8px 22px -10px rgba(0,0,0,.4);display:grid;place-items:center}
+.timer[hidden]{display:none}
+.timer svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.timer__val{font-weight:700;font-size:15px;color:var(--ink);line-height:1}
+.timer__cap{position:absolute;bottom:10px;font-size:7px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+
+.gw{position:relative;flex:none;width:238px}
+.gw[hidden]{display:none}
+@media (max-width:520px){.gw{width:186px}}
+.gw__cable{width:26px;height:54px;margin:0 auto -6px 42px;border-radius:10px 10px 2px 2px;background:var(--grey);border:1px solid var(--line)}
+.gw__body{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:0 10px 26px -14px rgba(0,0,0,.35)}
+.gw__brand{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:7px 12px 0;font-weight:700}
+.gw__strip{display:flex;align-items:flex-end;gap:12px;padding:8px 12px 12px}
+.gw__qr{width:36px;height:36px;flex:none;border:1px solid var(--line);
+  background-image:linear-gradient(var(--muted) 1px,transparent 1px),linear-gradient(90deg,var(--muted) 1px,transparent 1px);
+  background-size:5px 5px;opacity:.4}
+.gw__leds{display:flex;gap:10px;align-items:flex-end}
+.led{display:flex;flex-direction:column;align-items:center;gap:5px;width:46px}
+.led--eth{width:30px}
+.led__icon{color:var(--muted);height:13px;display:grid;place-items:center}
+.led__bar{width:100%;height:13px;border-radius:6px;background:var(--line);transition:background .25s ease, box-shadow .25s ease}
+.led--eth .led__bar{height:8px;width:20px}
+.led__cap{font-size:7px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap;font-weight:700}
+.gw__face{height:74px;border-top:1px solid var(--line);background:var(--grey)}
+.gw__slot{width:52px;height:5px;border-radius:2px;background:var(--line);margin:52px auto 0}
+[data-led="green"] .led--eth .led__bar,[data-led="blue"] .led--eth .led__bar{background:#18B24B;box-shadow:0 0 12px 1px rgba(24,178,75,.5)}
+[data-led="blue"] .led--btn .led__bar{background:#1A9BE8;box-shadow:0 0 16px 2px rgba(26,155,232,.55);animation:ledFlash 1.3s ease-in-out infinite}
+@keyframes ledFlash{0%,100%{opacity:1}50%{opacity:.6}}
+.thumb{position:absolute;left:50%;top:22px;width:72px;height:94px;border-radius:36px 36px 28px 28px;
+  background:linear-gradient(160deg,#F0C3A4,#D79D79);border:1px solid rgba(0,0,0,.08);
+  transform:translate(-4%,-130%);opacity:0;z-index:4}
+.thumb.is-press{animation:thumbPress 2.6s cubic-bezier(.3,.8,.3,1) forwards}
+@keyframes thumbPress{0%{transform:translate(-4%,-130%);opacity:0}22%{transform:translate(-4%,-6%);opacity:1}
+  40%{transform:translate(-4%,4%);opacity:1}62%{transform:translate(-4%,4%);opacity:1}100%{transform:translate(-4%,-40%);opacity:.9}}
+
+/* ---------- Erklärtext ---------- */
+.script{display:flex;flex-direction:column;gap:16px;position:sticky;top:20px}
+@media (max-width:900px){.script{position:static}}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.step-kicker{display:flex;align-items:baseline;gap:9px;font-size:12px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.step-kicker span:last-child{color:var(--muted);letter-spacing:.05em}
+h2.step-title{font-size:22px;line-height:1.2}
+.step-body{margin:10px 0 0;color:var(--text-2);font-size:16px}
+.step-body b{color:var(--ink);font-weight:700}
+.note{display:flex;gap:9px;margin-top:14px;padding:11px 13px;border-radius:var(--r);font-size:14px;
+  background:var(--grey);border:1px solid var(--line-2);color:var(--text-2)}
+.note--warn{background:var(--red-soft);border-color:rgba(246,4,57,.25);color:var(--ink)}
+.note__icon{font-weight:700;color:var(--red);flex:none}
+.transport{display:flex;flex-direction:column;gap:12px}
+.progress{height:3px;background:var(--line);overflow:hidden}
+.progress__bar{height:100%;width:0;background:var(--red)}
+.controls{display:flex;align-items:center;gap:8px}
+.ctrl{appearance:none;border:1px solid var(--line);background:#fff;color:var(--ink);width:40px;height:40px;border-radius:50%;
+  display:grid;place-items:center;cursor:pointer;font:inherit}
+.ctrl:hover{border-color:var(--ink)}
+.ctrl--play{background:var(--ink);border-color:var(--ink);color:#fff;width:46px;height:46px}
+.ctrl svg{width:15px;height:15px;fill:currentColor}
+.counter{margin-left:auto;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* ---------- Abschluss ---------- */
+.rule{margin-top:44px;border:1px solid var(--line);border-left:4px solid var(--red);border-radius:var(--r);
+  background:#fff;padding:24px;display:flex;flex-direction:column;gap:8px}
+.rule h2{font-size:20px}
+.rule p{margin:0;color:var(--text-2)}
+.faq{margin-top:34px}
+.faq h2{font-size:20px;margin-bottom:16px}
+.faq__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px 32px}
+.faq__item{border-top:2px solid var(--line);padding-top:12px}
+.faq__q{font-weight:700;font-size:15px;margin:0 0 5px;color:var(--ink)}
+.faq__a{margin:0;font-size:15px;color:var(--text-2)}
+
+/* ---------- Feedback ---------- */
+.fb{margin-top:44px;border-top:1px solid var(--line);padding-top:32px;text-align:center}
+.fb h2{font-size:20px}
+.fb__btns{display:flex;gap:12px;justify-content:center;margin-top:16px}
+.fb__btn{font:inherit;font-size:16px;font-weight:700;cursor:pointer;background:#fff;border:1px solid var(--line);
+  color:var(--ink);border-radius:var(--r);padding:12px 26px;display:inline-flex;align-items:center;gap:10px}
+.fb__btn:hover{border-color:var(--ink)}
+.fb__btn[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
+.fb__msg{margin:18px auto 0;max-width:60ch;color:var(--text-2)}
+.fb__msg[hidden]{display:none}
+.fb__form{margin:22px auto 0;max-width:720px;text-align:left;border:1px solid var(--line);border-radius:var(--r);
+  background:var(--grey);padding:18px}
+.fb__form[hidden]{display:none}
+.fb__form h3{font-size:16px;margin-bottom:6px}
+.fb__form p{margin:0 0 14px;font-size:14px;color:var(--text-2)}
+.fb__frame{width:100%;height:520px;border:1px solid var(--line);background:#fff}
+.fb__fallback{font-size:14px;color:var(--text-2)}
+footer{margin-top:40px;padding:22px 0 44px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);
+  display:flex;flex-wrap:wrap;gap:8px 20px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+
+<main class="wrap col">
+
+  <section class="intro">
+    <h1>Buderus MX 400 mit thermondo smart verbinden</h1>
+    <p>Zeigt Ihre App <b>Fehler 8</b> oder <b>„nicht verbunden“</b>? Dann muss die Wärmepumpe einmal neu gekoppelt werden.
+    Der Ablauf scheitert fast immer an einer Stelle: Nach dem blauen Aufleuchten am Gateway bleibt <b>genau eine Minute</b>,
+    um in der App zu speichern.</p>
+  </section>
+
+  <ul class="chapters" id="chapters"></ul>
+
+  <div class="player">
+    <div class="stage" id="stage">
+      <span class="stage__tag" id="stageTag">thermondo App</span>
+
+      <div class="phone" id="phone" data-state="error">
+        <div class="phone__screen">
+          <section class="screen" data-screen="list">
+            <div class="nav">
+              <span class="nav__back">‹ Zurück</span>
+              <span class="nav__gear" data-tap="gear" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3.2"></circle><path d="M19.1 14.6a1.6 1.6 0 0 0 .32 1.77a2 2 0 1 1-2.83 2.83a1.6 1.6 0 0 0-2.74 1.15V21a2 2 0 1 1-4 0a1.6 1.6 0 0 0-2.82-1.15a2 2 0 1 1-2.83-2.83A1.6 1.6 0 0 0 3.1 14.6H3a2 2 0 1 1 0-4a1.6 1.6 0 0 0 1.14-2.82a2 2 0 1 1 2.83-2.83A1.6 1.6 0 0 0 9.9 3.1V3a2 2 0 1 1 4 0a1.6 1.6 0 0 0 2.74 1.15a2 2 0 1 1 2.83 2.83A1.6 1.6 0 0 0 20.9 9.9H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.8.7Z"></path></svg>
+              </span>
+            </div>
+            <div class="pill-row"><span>Status: <b class="txt-ok">Aktiv</b></span><span>Signal: <b class="txt-ok">Verbunden</b></span></div>
+            <ul class="rows">
+              <li>Allgemeine Einstellungen<span>⌄</span></li>
+              <li>Tarifeinstellungen<span>⌄</span></li>
+              <li>Mitteilungseinstellungen<span>⌄</span></li>
+              <li>Notizen<span>⌄</span></li>
+              <li>Versionen<span>›</span></li>
+            </ul>
+            <div class="meters">
+              <div><small>Solarenergie</small><b>0 W</b></div>
+              <div><small>Verbrauch</small><b>58 W</b></div>
+              <div class="chips"><span class="chip">Dashboard</span><span class="chip">End User App</span></div>
+            </div>
+            <div class="tabs"><span class="is-active">Geräte</span><span>Wechselrichter</span><span>Smart-meter</span></div>
+            <div class="dev" data-tap="device">
+              <span class="dev__idx">1</span>
+              <div class="dev__name">Heizung / Wär…<small>Wärmepumpe</small></div>
+              <div class="dev__val">25 W<small>54 °C</small></div>
+              <div class="dev__state">
+                <span class="badge badge--err only-error">nicht verbunden</span>
+                <span class="badge only-ok">Verbunden</span>
+                <small>Fehler: <b class="txt-err only-error">8</b><b class="txt-ok only-ok">Nein</b></small>
+              </div>
+            </div>
+            <div class="dev">
+              <span class="dev__idx">2</span>
+              <div class="dev__name">Smart Plug<small>KW Wärmer</small></div>
+              <div class="dev__val">0 W<small>&nbsp;</small></div>
+              <div class="dev__state"><span class="badge">Verbunden</span><small>Fehler: Nein</small></div>
+            </div>
+            <div class="fab">+</div>
+          </section>
+
+          <section class="screen" data-screen="detail" hidden>
+            <div class="nav"><span></span><b>Heizung / Wärmepumpe</b><span class="nav__trash" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"></path></svg></span></div>
+            <div class="field" data-field="name">
+              <span class="field__label">Name des Geräts *</span>
+              <div class="field__row"><span>Buderus WLW (MX400 Gateway)</span><i class="dot-teal"></i></div>
+            </div>
+            <div class="link-inline">ⓘ Installationsanleitung</div>
+            <div class="field field--nav">Wärmepumpe <span>›</span></div>
+            <div class="field" data-field="ip">
+              <span class="field__label">IP des Geräts</span>
+              <div class="field__row"><span id="ipValue">—</span><button class="btn btn--ghost" data-tap="ipsearch">IP suchen</button></div>
+            </div>
+            <div class="field"><span class="field__label">Minimale Einschaltleistung [W] *</span><div class="field__row"><span>3000</span></div></div>
+            <div class="field"><span class="field__label">Einschaltverzögerung [Minuten] *</span><div class="field__row"><span>5</span></div></div>
+            <div class="field"><span class="field__label">Abschaltverzögerung [Minuten] *</span><div class="field__row"><span>5</span></div></div>
+            <div class="field"><span class="field__label">Mindestlaufzeit [Min] *</span><div class="field__row"><span>20</span></div></div>
+            <div class="checks">
+              <label><i class="box"></i> Brauchwasser-Temperatur erhöhen</label>
+              <label><i class="box"></i> Komfort Temperatur-Bereich aktivier…</label>
+            </div>
+            <div class="actions">
+              <span class="btn btn--sec">Abbrechen</span>
+              <span class="btn btn--pri" data-tap="save">Speichern</span>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="ip" hidden>
+            <div class="nav" style="justify-content:center"><b>IP suchen</b></div>
+            <div class="search">gateway</div>
+            <div class="ip-loading" id="ipLoading">
+              <span class="spinner"></span>
+              <span>Suche läuft …<br>Das kann bis zu 1 Minute dauern.</span>
+            </div>
+            <div class="ip-item" id="ipResult" data-tap="ipitem" hidden>
+              <b>MX400-084932.fritz.box</b>
+              <small>IP: 192.168.178.20</small>
+              <small>MAC: fb:3c:9a:…</small>
+            </div>
+            <div class="actions">
+              <span class="btn btn--sec">Abbrechen</span>
+              <span class="btn btn--pri is-off">Speichern</span>
+            </div>
+          </section>
+        </div>
+
+        <div class="tap" id="tap" hidden></div>
+
+        <div class="timer" id="timer" hidden>
+          <svg viewBox="0 0 74 74" aria-hidden="true">
+            <circle cx="37" cy="37" r="32" fill="none" stroke="#E3E3E3" stroke-width="5"></circle>
+            <circle id="timerRing" cx="37" cy="37" r="32" fill="none" stroke="#F60439" stroke-width="5"
+                    stroke-linecap="round" stroke-dasharray="201.1" stroke-dashoffset="0"></circle>
+          </svg>
+          <span class="timer__val" id="timerVal">0:60</span>
+          <span class="timer__cap">Zeitfenster</span>
+        </div>
+      </div>
+
+      <div class="gw" id="gw" data-led="off" hidden>
+        <div class="gw__cable"></div>
+        <div class="gw__body">
+          <div class="gw__brand">MX 400 Gateway</div>
+          <div class="gw__strip">
+            <div class="gw__qr"></div>
+            <div class="gw__leds">
+              <div class="led led--eth">
+                <span class="led__icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="9" width="16" height="11" rx="2"></rect><path d="M9 9V6h6v3"></path></svg></span>
+                <span class="led__bar"></span><span class="led__cap">Ethernet</span>
+              </div>
+              <div class="led led--btn">
+                <span class="led__icon"><svg width="15" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="2.5"></circle><path d="M7.5 7.5a6.4 6.4 0 0 0 0 9M16.5 7.5a6.4 6.4 0 0 1 0 9M4.5 4.5a10.6 10.6 0 0 0 0 15M19.5 4.5a10.6 10.6 0 0 1 0 15"></path></svg></span>
+                <span class="led__bar"></span><span class="led__cap">Taste 1</span>
+              </div>
+              <div class="led led--btn">
+                <span class="led__icon"><svg width="15" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M2.5 8.5a14 14 0 0 1 19 0M6 12.5a9 9 0 0 1 12 0M9.4 16.4a4 4 0 0 1 5.2 0"></path><circle cx="12" cy="19.5" r="1.3" fill="currentColor" stroke="none"></circle></svg></span>
+                <span class="led__bar"></span><span class="led__cap">Taste 2</span>
+              </div>
+            </div>
+          </div>
+          <div class="gw__face"><div class="gw__slot"></div></div>
+        </div>
+        <div class="thumb" id="thumb"></div>
+      </div>
+    </div>
+
+    <div class="script">
+      <div class="card">
+        <div class="step-kicker"><span id="kickerStep">Schritt 1</span><span id="kickerOf">Gerät prüfen</span></div>
+        <h2 class="step-title" id="sceneTitle">…</h2>
+        <p class="step-body" id="sceneBody">…</p>
+        <div class="note" id="sceneNote" hidden><span class="note__icon" id="noteIcon">!</span><span id="noteText"></span></div>
+      </div>
+      <div class="transport">
+        <div class="progress"><div class="progress__bar" id="progressBar"></div></div>
+        <div class="controls">
+          <button class="ctrl ctrl--play" id="playBtn" aria-label="Abspielen oder anhalten">
+            <svg id="playIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+          </button>
+          <button class="ctrl" id="prevBtn" aria-label="Vorherige Szene"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5 8 12l10 7zM6 5h2v14H6z"/></svg></button>
+          <button class="ctrl" id="nextBtn" aria-label="Nächste Szene"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5l10 7L6 19zM16 5h2v14h-2z"/></svg></button>
+          <button class="ctrl" id="replayBtn" aria-label="Von vorne"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg></button>
+          <span class="counter" id="counter">01 / 12</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="rule">
+    <h2>Die eine Regel, an der es meistens scheitert</h2>
+    <p>Erst die IP in der App über „IP suchen“ übernehmen, <b>dann</b> am Gateway die beiden Tasten drücken, und
+    <b>dann sofort</b> auf „Speichern“ tippen. Wer vorher speichert oder nach dem blauen Aufleuchten länger als eine
+    Minute braucht, bekommt wieder Fehler 8.</p>
+  </section>
+
+  <section class="faq">
+    <h2>Wenn es trotzdem nicht klappt</h2>
+    <div class="faq__grid">
+      <div class="faq__item"><p class="faq__q">Die Ethernet-LED leuchtet nicht grün</p>
+        <p class="faq__a">Dann hat das Gateway keine Netzwerkverbindung. Netzwerkkabel am Gateway und am Router prüfen.</p></div>
+      <div class="faq__item"><p class="faq__q">In der Liste erscheint kein „MX400…“</p>
+        <p class="faq__a">Wärmepumpe, Gateway und Handy müssen im selben Netzwerk hängen. Manche Geräte melden sich als „BOSCH…“.</p></div>
+      <div class="faq__item"><p class="faq__q">Das Gerät heißt in der App anders</p>
+        <p class="faq__a">Bei einer Buderus Wärmepumpe muss „Buderus WLW (MX400 Gateway)“ eingetragen sein. Sonst „Abbrechen“ und über das rote „+“ neu anlegen.</p></div>
+      <div class="faq__item"><p class="faq__q">Es kommt wieder Fehler 8</p>
+        <p class="faq__a">Fehler 8 heißt nur: Die Anmeldung war nicht erfolgreich. Schritt 3 und 4 wiederholen – diesmal mit Blick auf die Uhr.</p></div>
+    </div>
+  </section>
+
+  <section class="fb">
+    <h2>War diese Anleitung hilfreich?</h2>
+    <div class="fb__btns">
+      <button class="fb__btn" id="fbYes" type="button" aria-pressed="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M7 22V11l5-9a2.5 2.5 0 0 1 2.4 3.2L13.5 9H19a2 2 0 0 1 2 2.4l-1.6 8A2 2 0 0 1 17.4 21H7Z"></path><rect x="2" y="11" width="5" height="11" rx="1"></rect></svg>
+        Ja
+      </button>
+      <button class="fb__btn" id="fbNo" type="button" aria-pressed="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M17 2v11l-5 9a2.5 2.5 0 0 1-2.4-3.2L10.5 15H5a2 2 0 0 1-2-2.4l1.6-8A2 2 0 0 1 6.6 3H17Z"></path><rect x="17" y="2" width="5" height="11" rx="1"></rect></svg>
+        Nein
+      </button>
+    </div>
+
+    <p class="fb__msg" id="fbThanks" hidden>Danke für Ihre Rückmeldung.</p>
+
+    <div class="fb__form" id="fbForm" hidden>
+      <h3>Was hat nicht funktioniert?</h3>
+      <p>Mit Ihrer BV-Nummer können wir gezielt nachsehen und die Anleitung verbessern.</p>
+      <iframe class="fb__frame" id="fbFrame" title="Feedback-Formular" src="about:blank" loading="lazy"></iframe>
+      <p class="fb__fallback" id="fbFallback" hidden>
+        Das Formular ist noch nicht hinterlegt. Bitte tragen Sie die Adresse des Tally-Formulars in der Datei ein
+        (Konstante <b>TALLY_URL</b>).
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <span>thermondo smart · Anleitung Buderus MX 400 Gateway</span>
+  </footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ====== HIER DIE ADRESSE DES TALLY-FORMULARS EINTRAGEN ======
+     Beispiel: "https://tally.so/embed/wABC12"
+     Das Formular braucht: BV-Nummer (Text), Kommentar (langer Text)
+     und zwei versteckte Felder: anleitung, bewertung                */
+  var TALLY_URL = "";
+  var ANLEITUNG = "buderus-mx400";
+  /* ============================================================ */
+
+  var SCENES = [
+    { ch:0, dur:8000, view:"phone", screen:"list", state:"error", tag:"thermondo App",
+      title:"Fehler 8 heißt: neu koppeln",
+      body:"Die Wärmepumpe steht in der App auf <b>„nicht verbunden“</b> und bei Fehler steht eine <b>8</b>. Kein Defekt – die Anmeldung zwischen Gerät und Energiemanager ist fehlgeschlagen.",
+      note:{t:"Voraussetzung: Wärmepumpe und Gateway sind eingeschaltet und mit demselben Netzwerk (Router) verbunden.", i:"i"} },
+    { ch:1, dur:5000, view:"phone", screen:"list", state:"error", tap:"gear", tag:"thermondo App",
+      title:"Einstellungen öffnen",
+      body:"thermondo App öffnen und auf das <b>Zahnrad-Symbol</b> (Einstellungen) tippen." },
+    { ch:1, dur:5000, view:"phone", screen:"list", state:"error", tap:"device", tag:"thermondo App",
+      title:"Wärmepumpe antippen",
+      body:"In der Geräteliste den Eintrag <b>„Heizung / Wärmepumpe“</b> antippen." },
+    { ch:1, dur:8000, view:"phone", screen:"detail", hl:"name", tag:"Geräteeinstellungen",
+      title:"Ist das richtige Gerät hinterlegt?",
+      body:"Bei <b>Name des Geräts</b> muss <b>„Buderus WLW (MX400 Gateway)“</b> stehen.",
+      note:{t:"Steht dort etwas anderes oder fehlt das Gerät: auf „Abbrechen“ tippen und über das rote „+“ eine neue Wärmepumpe „Buderus WLW (MX400 Gateway)“ anlegen.", i:"+"} },
+    { ch:2, dur:5000, view:"phone", screen:"detail", hl:"ip", tap:"ipsearch", tag:"Geräteeinstellungen",
+      title:"„IP suchen“ antippen",
+      body:"Das Feld <b>IP des Geräts</b> nicht selbst ausfüllen. Stattdessen rechts daneben auf <b>„IP suchen“</b> tippen." },
+    { ch:2, dur:6000, view:"phone", screen:"ip", ip:"loading", tag:"IP suchen",
+      title:"Suche läuft – Geduld",
+      body:"Die App durchsucht jetzt Ihr Netzwerk. Das kann <b>bis zu einer Minute</b> dauern.",
+      note:{t:"Hier passiert noch nichts am Gateway. Die Tasten kommen erst in Schritt 3.", i:"i"} },
+    { ch:2, dur:7000, view:"phone", screen:"ip", ip:"result", tap:"ipitem", tag:"IP suchen",
+      title:"Das Gateway auswählen",
+      body:"In der Liste erscheint meistens ein Eintrag, der mit <b>„MX400…“</b> beginnt. Diesen antippen.",
+      note:{t:"In Ausnahmefällen heißt das Gerät „BOSCH…“ – das ist dasselbe Gateway.", i:"i"} },
+    { ch:2, dur:7000, view:"phone", screen:"detail", hl:"ip", ipVal:"192.168.178.20", tag:"Geräteeinstellungen",
+      title:"IP steht drin – jetzt warten",
+      body:"Die IP-Adresse ist übernommen. <b>Jetzt noch nicht auf „Speichern“ tippen.</b> Zuerst geht es ans Gateway.",
+      note:{t:"Das ist der häufigste Fehler: zu früh speichern. Die App bleibt einfach offen.", i:"!", warn:true} },
+    { ch:3, dur:7000, view:"gw", led:"green", tag:"MX 400 Gateway",
+      title:"Leuchtet die Ethernet-LED grün?",
+      body:"Am Gateway links sitzt die <b>Ethernet-LED</b>. Sie muss <b>grün</b> leuchten – nur dann ist das Gateway im Netzwerk.",
+      note:{t:"Leuchtet sie nicht: Netzwerkkabel am Gateway und am Router prüfen.", i:"i"} },
+    { ch:3, dur:9000, view:"gw", led:"green", press:true, tag:"MX 400 Gateway",
+      title:"Beide Tasten gleichzeitig kurz drücken",
+      body:"Die <b>beiden Tasten gleichzeitig kurz</b> drücken – am einfachsten quer mit dem Daumen –, bis sie <b>kurz blau aufleuchten</b>.",
+      note:{t:"Nicht gedrückt halten. Richtig gemacht heißt: beide Tasten leuchten kurz blau auf.", i:"i"} },
+    { ch:4, dur:11000, view:"both", led:"blue", screen:"detail", ipVal:"192.168.178.20", timer:true, tap:"save", tag:"Jetzt zählt jede Sekunde",
+      title:"Sofort auf „Speichern“ tippen",
+      body:"Sobald beide Tasten <b>blau</b> leuchten: sofort in der App auf <b>„Speichern“</b> tippen.",
+      note:{t:"Ab dem blauen Aufleuchten bleibt maximal 1 Minute. Danach ab Schritt 3 neu beginnen.", i:"⏱", warn:true} },
+    { ch:4, dur:9000, view:"phone", screen:"list", state:"ok", tag:"thermondo App",
+      title:"Verbunden",
+      body:"Die Wärmepumpe steht jetzt auf <b>„Verbunden“</b> und bei Fehler steht <b>„Nein“</b>.",
+      note:{t:"Steht dort wieder eine 8? Dann war das Zeitfenster zu knapp – Schritt 3 und 4 wiederholen.", i:"i"} }
+  ];
+  var CHAPTERS = [
+    {n:"0", label:"Das Problem"}, {n:"1", label:"Gerät prüfen"}, {n:"2", label:"IP suchen"},
+    {n:"3", label:"Tasten drücken"}, {n:"4", label:"Speichern"}
+  ];
+
+  var $ = function(id){ return document.getElementById(id); };
+  var phone=$("phone"), gw=$("gw"), thumb=$("thumb"), tap=$("tap"), timer=$("timer"),
+      timerVal=$("timerVal"), timerRing=$("timerRing"), ipValue=$("ipValue"),
+      ipLoading=$("ipLoading"), ipResult=$("ipResult"), stageTag=$("stageTag"),
+      bar=$("progressBar"), counter=$("counter"), titleEl=$("sceneTitle"), bodyEl=$("sceneBody"),
+      noteEl=$("sceneNote"), noteIcon=$("noteIcon"), noteText=$("noteText"),
+      kickerStep=$("kickerStep"), kickerOf=$("kickerOf"), playBtn=$("playBtn"), playIcon=$("playIcon"),
+      chaptersEl=$("chapters");
+
+  var screens={}; Array.prototype.forEach.call(phone.querySelectorAll("[data-screen]"), function(el){
+    screens[el.getAttribute("data-screen")] = el; });
+
+  var RING = 2*Math.PI*32, idx=0, elapsed=0, playing=true, last=0;
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var ICON_PLAY='<path d="M7 4l13 8-13 8z"/>', ICON_PAUSE='<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>';
+
+  CHAPTERS.forEach(function(c,i){
+    var li=document.createElement("li"), b=document.createElement("button");
+    b.className="chapter"; b.type="button";
+    b.innerHTML='<span class="chapter__n">'+c.n+'</span><span>'+c.label+'</span>';
+    b.addEventListener("click", function(){ for(var k=0;k<SCENES.length;k++){ if(SCENES[k].ch===i){ go(k); return; } } });
+    li.appendChild(b); chaptersEl.appendChild(li); c.el=b;
+  });
+
+  function placeTap(name){
+    tap.hidden=true; if(!name) return;
+    var t=phone.querySelector('[data-tap="'+name+'"]'); if(!t) return;
+    var pr=phone.getBoundingClientRect(), tr=t.getBoundingClientRect(); if(!tr.width) return;
+    tap.style.left=(tr.left-pr.left+tr.width/2)+"px";
+    tap.style.top=(tr.top-pr.top+tr.height/2)+"px";
+    tap.hidden=false; tap.style.animation="none"; void tap.offsetWidth; tap.style.animation="";
+  }
+
+  function render(){
+    var s=SCENES[idx];
+    phone.hidden=(s.view==="gw"); gw.hidden=(s.view==="phone");
+    gw.style.transform=(s.view==="both")?"scale(.72)":"";
+    stageTag.textContent=s.tag;
+    for(var k in screens){ screens[k].hidden=(k!==(s.screen||"list")); }
+    phone.setAttribute("data-state", s.state||"ok");
+    Array.prototype.forEach.call(phone.querySelectorAll("[data-field]"), function(f){
+      f.classList.toggle("is-hl", s.hl===f.getAttribute("data-field")); });
+    ipLoading.hidden=(s.ip!=="loading"); ipResult.hidden=(s.ip!=="result");
+    ipValue.textContent=s.ipVal||"—";
+    gw.setAttribute("data-led", s.led||"off");
+    thumb.classList.remove("is-press");
+    if(s.press && !reduced){ void thumb.offsetWidth; thumb.classList.add("is-press"); }
+    thumb.style.opacity=s.press?"":"0";
+    timer.hidden=!s.timer;
+    if(s.timer){ timerRing.setAttribute("stroke-dashoffset","0"); timerVal.textContent="0:60"; }
+    var ch=CHAPTERS[s.ch];
+    kickerStep.textContent = s.ch===0 ? "Ausgangslage" : "Schritt "+ch.n;
+    kickerOf.textContent = s.ch===0 ? "" : ch.label;
+    titleEl.innerHTML=s.title; bodyEl.innerHTML=s.body;
+    if(s.note){ noteEl.hidden=false; noteEl.classList.toggle("note--warn", !!s.note.warn);
+      noteIcon.textContent=s.note.i; noteText.innerHTML=s.note.t; } else { noteEl.hidden=true; }
+    counter.textContent=pad(idx+1)+" / "+pad(SCENES.length);
+    CHAPTERS.forEach(function(c,i){ c.el.setAttribute("aria-current", i===s.ch?"true":"false");
+      c.el.classList.toggle("is-done", i<s.ch); });
+    tap.hidden=true;
+    if(s.tap){ var d=s.timer?2600:900; window.setTimeout(function(){ if(SCENES[idx]===s) placeTap(s.tap); }, reduced?0:d); }
+  }
+  function pad(n){ return (n<10?"0":"")+n; }
+  function go(i){ idx=(i+SCENES.length)%SCENES.length; elapsed=0; bar.style.width="0%"; render(); }
+
+  function tick(now){
+    if(!last) last=now;
+    var dt=now-last; last=now;
+    if(playing){
+      elapsed+=dt;
+      var s=SCENES[idx], p=Math.min(elapsed/s.dur,1);
+      bar.style.width=(p*100).toFixed(2)+"%";
+      if(s.timer){
+        var left=Math.max(0, Math.round(60-p*42));
+        timerVal.textContent="0:"+(left<10?"0":"")+left;
+        timerRing.setAttribute("stroke-dashoffset",(RING*(1-left/60)).toFixed(1));
+        timerRing.setAttribute("stroke", left<=25 ? "#F60439" : "#18B24B");
+      }
+      if(p>=1) go(idx+1);
+    }
+    window.requestAnimationFrame(tick);
+  }
+  function setPlaying(v){ playing=v; playIcon.innerHTML=v?ICON_PAUSE:ICON_PLAY;
+    playBtn.setAttribute("aria-label", v?"Anhalten":"Abspielen"); }
+
+  playBtn.addEventListener("click", function(){ setPlaying(!playing); });
+  $("prevBtn").addEventListener("click", function(){ go(idx-1); });
+  $("nextBtn").addEventListener("click", function(){ go(idx+1); });
+  $("replayBtn").addEventListener("click", function(){ go(0); setPlaying(true); });
+  document.addEventListener("keydown", function(e){
+    if(e.key==="ArrowRight") go(idx+1);
+    else if(e.key==="ArrowLeft") go(idx-1);
+    else if(e.key===" "||e.key==="Spacebar"){ e.preventDefault(); setPlaying(!playing); }
+  });
+  window.addEventListener("resize", function(){ if(SCENES[idx].tap) placeTap(SCENES[idx].tap); });
+
+  /* ---------- Feedback ---------- */
+  var fbYes=$("fbYes"), fbNo=$("fbNo"), fbThanks=$("fbThanks"), fbForm=$("fbForm"),
+      fbFrame=$("fbFrame"), fbFallback=$("fbFallback");
+
+  function press(btn, other){ btn.setAttribute("aria-pressed","true"); other.setAttribute("aria-pressed","false"); }
+
+  fbYes.addEventListener("click", function(){
+    press(fbYes, fbNo);
+    fbForm.hidden = true;
+    fbThanks.hidden = false;
+    fbThanks.textContent = "Danke für Ihre Rückmeldung.";
+  });
+
+  fbNo.addEventListener("click", function(){
+    press(fbNo, fbYes);
+    fbThanks.hidden = true;
+    fbForm.hidden = false;
+    if (TALLY_URL) {
+      if (fbFrame.getAttribute("src") === "about:blank") {
+        var sep = TALLY_URL.indexOf("?") > -1 ? "&" : "?";
+        fbFrame.setAttribute("src", TALLY_URL + sep + "anleitung=" + encodeURIComponent(ANLEITUNG) + "&bewertung=nein");
+      }
+      fbFrame.hidden = false; fbFallback.hidden = true;
+    } else {
+      fbFrame.hidden = true; fbFallback.hidden = false;
+    }
+    fbForm.scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "nearest"});
+  });
+
+  setPlaying(true); go(0); window.requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Animierte Schritt-für-Schritt-Anleitung: Buderus MX 400 Gateway mit thermondo smart koppeln.">
 <style>
